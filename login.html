@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - STACKLY Crop Advisory</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/responsive.css">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <style>
+        .login-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--bg-color) 0%, #e8f5e9 100%);
+            padding: 24px;
+        }
+        .login-card {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            width: 100%;
+            max-width: 450px;
+            padding: 48px;
+            text-align: center;
+        }
+        .login-logo {
+            font-size: 2rem;
+            color: var(--primary-green);
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 32px;
+        }
+        .password-input-group {
+            position: relative;
+        }
+        .toggle-password {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: var(--text-light);
+        }
+        .login-footer {
+            margin-top: 32px;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-container">
+        <div class="login-card reveal">
+            <div style="margin-bottom: 24px; display: flex; justify-content: flex-start;">
+                <a href="index.html" style="font-size: 0.85rem; color: var(--text-light); display: flex; align-items: center; gap: 4px;">
+                    <i class="ph-bold ph-arrow-left"></i> Back to Home
+                </a>
+            </div>
+            <a href="index.html" class="login-logo"><img src="assets/images/logo.webp" alt="STACKLY" style="height: 60px; width: auto;"></a>
+            
+            <h2 style="margin-bottom: 8px;">Welcome Back!</h2>
+            <p style="margin-bottom: 32px;">Login to access your personalized dashboard.</p>
+            <div class="role-selector" id="roleSelector">
+                <div class="role-card active" data-role="user">
+                    <i class="ph-bold ph-user"></i>
+                    <span>Farmer</span>
+                </div>
+                <div class="role-card" data-role="admin">
+                    <i class="ph-bold ph-shield-check"></i>
+                    <span>Admin</span>
+                </div>
+            </div>
+            
+            <form id="loginForm" style="text-align: left;">
+                <div class="form-group">
+                    <label class="form-label">Mobile Number / Email</label>
+                    <input type="text" id="username" class="form-control" required placeholder="Enter your mobile or email">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Password</label>
+                    <div class="password-input-group">
+                        <input type="password" id="password" class="form-control" required placeholder="Enter your password">
+                        <i class="ph-bold ph-eye toggle-password" id="togglePassword"></i>
+                    </div>
+                </div>
+                
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px; font-size: 0.9rem;">
+                    <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                        <input type="checkbox"> Remember me
+                    </label>
+                    <a href="404.html" style="color: var(--primary-green); font-weight: 500;">Forgot Password?</a>
+                </div>
+                
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Login to Dashboard</button>
+            </form>
+            
+            <div class="login-footer">
+                Don't have an account? <a href="register.html" style="color: var(--primary-green); font-weight: 600;">Create Account</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="assets/js/animations.js"></script>
+    <script>
+        // Toggle Password Visibility
+        const togglePassword = document.getElementById('togglePassword');
+        const passwordInput = document.getElementById('password');
+
+        togglePassword.addEventListener('click', function () {
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            
+            if(type === 'text') {
+                this.classList.remove('ph-eye');
+                this.classList.add('ph-eye-slash');
+            } else {
+                this.classList.remove('ph-eye-slash');
+                this.classList.add('ph-eye');
+            }
+        });
+
+        // Role Selector Logic
+        const roleCards = document.querySelectorAll('.role-card');
+        let selectedRole = 'user';
+        
+        roleCards.forEach(card => {
+            card.addEventListener('click', () => {
+                roleCards.forEach(c => c.classList.remove('active'));
+                card.classList.add('active');
+                selectedRole = card.getAttribute('data-role');
+            });
+        });
+
+        // Demo Login Validation (Frontend only)
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            // In a real app, validation and fetch to backend happens here.
+            // For demo, we redirect based on role.
+            if (selectedRole === 'admin') {
+                window.location.href = 'admindashboard.html';
+            } else {
+                window.location.href = 'userdashboard.html';
+            }
+        });
+    </script>
+</body>
+</html>

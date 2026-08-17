@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farmer Dashboard - STACKLY</title>
+    <link rel="stylesheet" href="assets/css/userdashboard.css">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+</head>
+<body>
+
+    <div class="dashboard-layout">
+        
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="index.html" class="logo">
+                    <img src="assets/images/logo.webp" alt="STACKLY" style="height: 32px; width: auto;">
+                </a>
+            </div>
+            
+            <div class="sidebar-profile">
+                <div class="avatar">
+                    <i class="ph-bold ph-user"></i>
+                </div>
+                <div class="profile-info">
+                    <h4>Ramesh Kumar</h4>
+                    <p>ramesh@example.com</p>
+                    <span class="badge">Farmer Panel</span>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <!-- Category 1 -->
+                <div class="nav-category">
+                    <div class="nav-category-title">Main</div>
+                    <a href="404.html" class="nav-item active">
+                        <i class="ph-fill ph-squares-four"></i>
+                        <span>Dashboard</span>
+                    </a>
+                    <a href="404.html" class="nav-item">
+                        <i class="ph-fill ph-plant"></i>
+                        <span>My Crops</span>
+                    </a>
+                </div>
+
+                <!-- Category 2 -->
+                <div class="nav-category">
+                    <div class="nav-category-title">Advisory</div>
+                    <a href="404.html" class="nav-item">
+                        <i class="ph-fill ph-currency-inr"></i>
+                        <span>Market Prices</span>
+                    </a>
+                    <a href="404.html" class="nav-item">
+                        <i class="ph-fill ph-cloud-sun"></i>
+                        <span>Weather Alerts</span>
+                    </a>
+                </div>
+
+                <!-- Category 3 -->
+                <div class="nav-category">
+                    <div class="nav-category-title">Resources</div>
+                    <a href="404.html" class="nav-item">
+                        <i class="ph-fill ph-bug"></i>
+                        <span>Pest Library</span>
+                    </a>
+                    <a href="404.html" class="nav-item">
+                        <i class="ph-fill ph-book-open"></i>
+                        <span>Farming Guides</span>
+                    </a>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            
+            <!-- Topbar -->
+            <header class="topbar">
+                <h2>Stackly Farmer Portal</h2>
+                <div class="topbar-actions">
+                    <button onclick="window.location.href='404.html'" class="notification-btn" aria-label="Notifications">
+                        <i class="ph-bold ph-bell"></i>
+                    </button>
+                    <div class="topbar-profile">
+                        <div class="topbar-avatar">R</div>
+                        Ramesh
+                    </div>
+                </div>
+            </header>
+
+            <!-- Dashboard Container -->
+            <div class="dashboard-container">
+                
+                <!-- Hero Section -->
+                <section class="hero-card">
+                    <div class="hero-content">
+                        <h1>Welcome back,<br><span>Ramesh!</span> <i class="ph-fill ph-hand-waving" style="color: #ffd54f;"></i></h1>
+                        <p>You're one step closer to a better harvest today.</p>
+                        <p class="hero-quote">"Smart farming today, sustainable yield tomorrow."</p>
+                    </div>
+                    
+                    <div class="hero-stats">
+                        <div class="hero-stat-item">
+                            <i class="ph-fill ph-calendar-check"></i>
+                            <div class="hero-stat-info">
+                                <p>Member Since</p>
+                                <h4>Jan 2025</h4>
+                            </div>
+                        </div>
+                        <div class="hero-stat-item">
+                            <i class="ph-fill ph-star"></i>
+                            <div class="hero-stat-info">
+                                <p>Membership</p>
+                                <h4>Premium</h4>
+                            </div>
+                        </div>
+                        <div class="hero-stat-item">
+                            <i class="ph-fill ph-target"></i>
+                            <div class="hero-stat-info">
+                                <p>Primary Crop</p>
+                                <h4>Paddy (Kharif)</h4>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Stats Row -->
+                <section class="stats-grid">
+                    
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="stat-icon">
+                                <i class="ph-fill ph-plant"></i>
+                            </div>
+                            <h3>Active Crops</h3>
+                        </div>
+                        <div class="stat-value">3</div>
+                        <div class="stat-change positive">
+                            <i class="ph-bold ph-arrow-up"></i> 1 new this season
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="stat-icon">
+                                <i class="ph-fill ph-warning-circle"></i>
+                            </div>
+                            <h3>Active Alerts</h3>
+                        </div>
+                        <div class="stat-value">2</div>
+                        <div class="stat-change negative">
+                            <i class="ph-bold ph-arrow-up"></i> Pest warning in area
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="stat-icon">
+                                <i class="ph-fill ph-cloud-rain"></i>
+                            </div>
+                            <h3>Rainfall (mm)</h3>
+                        </div>
+                        <div class="stat-value">145</div>
+                        <div class="stat-change positive">
+                            <i class="ph-bold ph-arrow-up"></i> 12% vs last month
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="stat-icon">
+                                <i class="ph-fill ph-currency-inr"></i>
+                            </div>
+                            <h3>Est. Revenue</h3>
+                        </div>
+                        <div class="stat-value">₹45k</div>
+                        <div class="stat-change positive">
+                            <i class="ph-bold ph-arrow-up"></i> Market prices rising
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="stat-icon">
+                                <i class="ph-fill ph-chart-line-up"></i>
+                            </div>
+                            <h3>Farm Health</h3>
+                        </div>
+                        <div class="stat-value">Good</div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar" style="width: 85%;"></div>
+                        </div>
+                        <div class="stat-change" style="color: var(--dash-text-muted);">
+                            85% optimal conditions
+                        </div>
+                    </div>
+
+                </section>
+            </div>
+        </main>
+    </div>
+
+</body>
+</html>

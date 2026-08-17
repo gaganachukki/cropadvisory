@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - STACKLY</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/responsive.css">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <style>
+        .faq-item {
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            margin-bottom: 16px;
+            background-color: var(--white);
+            overflow: hidden;
+        }
+        .faq-question {
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--primary-dark);
+            transition: var(--transition);
+        }
+        .faq-question:hover {
+            background-color: var(--accent-light);
+        }
+        .faq-answer {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, padding 0.3s ease;
+            color: var(--text-light);
+        }
+        .faq-item.active .faq-answer {
+            padding: 0 20px 20px;
+            max-height: 500px;
+        }
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+        .success-msg {
+            display: none;
+            background-color: #e8f5e9;
+            color: #2e7d32;
+            padding: 16px;
+            border-radius: var(--radius-sm);
+            margin-bottom: 24px;
+            border-left: 4px solid #4caf50;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo"><img src="assets/images/logo.webp" alt="STACKLY" style="height: 40px; width: auto;"></a>
+            
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="crop-advisory.html">Crop Advisory</a>
+                <a href="crop-protection.html">Protection</a>
+                <a href="blog.html">Blog</a>
+                <a href="contact.html" class="active">Contact</a>
+            
+            <div class="mobile-auth-container" style="flex-direction: column; gap: 12px; margin-top: 16px; width: 100%; max-width: 200px;">
+                <a href="login.html" class="desktop-auth-btn btn btn-secondary" style="width: 100%; justify-content: center;"><i class="ph ph-user"></i> Login</a>
+                <a href="register.html" class="desktop-auth-btn btn btn-primary" style="width: 100%; justify-content: center;">Register</a>
+            </div>
+        </div>
+            
+            <div class="nav-actions" style="display: flex; gap: 12px; align-items: center;">
+                <a href="login.html" class="desktop-auth-btn btn btn-secondary" style="padding: 8px 16px;"><i class="ph ph-user"></i> Login</a>
+                <a href="register.html" class="desktop-auth-btn btn btn-primary" style="padding: 8px 16px;">Register</a>
+                <button class="hamburger" aria-label="Menu" style="margin-left: 8px;">
+                    <i class="ph ph-list" style="font-size: 24px;"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Banner -->
+    <header class="page-banner" style="background: linear-gradient(rgba(25, 64, 37, 0.7), rgba(37, 93, 55, 0.7)), url('assets/images/banner_contact.webp') center/cover;">
+        <div class="container reveal">
+            <h1>Contact Us</h1>
+            <p>We're Here to Help You Grow Better</p>
+        </div>
+    </header>
+
+    <section class="section">
+        <div class="container reveal">
+            <div class="grid grid-2" style="gap: 60px;">
+                
+                <!-- Contact Form -->
+                <div>
+                    <h2 style="margin-bottom: 24px;">Send us a Message</h2>
+                    
+                    <div id="formSuccess" class="success-msg">
+                        <strong>Thank you!</strong> Your message has been sent successfully. Our agri-expert will contact you soon.
+                    </div>
+                    
+                    <form id="contactForm" class="card" style="background-color: var(--white);">
+                        <div class="grid grid-2" style="gap: 20px;">
+                            <div class="form-group">
+                                <label class="form-label">Farmer Name *</label>
+                                <input type="text" id="name" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Phone Number *</label>
+                                <input type="tel" id="phone" class="form-control" required pattern="[0-9]{10}">
+                            </div>
+                        </div>
+                        
+                        <div class="grid grid-2" style="gap: 20px;">
+                            <div class="form-group">
+                                <label class="form-label">District (Tamil Nadu) *</label>
+                                <select id="district" class="form-control" required>
+                                    <option value="">Select District</option>
+                                    <option value="coimbatore">Coimbatore</option>
+                                    <option value="madurai">Madurai</option>
+                                    <option value="salem">Salem</option>
+                                    <option value="thanjavur">Thanjavur</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Crop Name *</label>
+                                <input type="text" id="cropName" class="form-control" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Subject</label>
+                            <input type="text" id="subject" class="form-control">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Message/Query *</label>
+                            <textarea id="message" class="form-control" required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">Submit Query</button>
+                    </form>
+                </div>
+
+                <!-- Contact Info & Support -->
+                <div>
+                    <h2 style="margin-bottom: 24px;">Contact Information</h2>
+                    
+                    <div class="card" style="margin-bottom: 32px;">
+                        <ul style="margin: 0;">
+                            <li style="display: flex; align-items: flex-start; gap: 16px; margin-bottom: 24px;">
+                                <div class="card-icon" style="width: 48px; height: 48px; min-width: 48px; flex-shrink: 0; margin: 0;"><i class="ph-fill ph-phone"></i></div>
+                                <div>
+                                    <h4 style="margin-bottom: 4px;">Phone Support</h4>
+                                    <p style="margin: 0;">+91 1800 123 4567<br><span style="font-size: 0.85rem; color: var(--text-light);">Mon - Sat (9:00 AM to 6:00 PM)</span></p>
+                                </div>
+                            </li>
+                            <li style="display: flex; align-items: flex-start; gap: 16px; margin-bottom: 24px;">
+                                <div class="card-icon" style="width: 48px; height: 48px; min-width: 48px; flex-shrink: 0; margin: 0;"><i class="ph-fill ph-envelope"></i></div>
+                                <div>
+                                    <h4 style="margin-bottom: 4px;">Email Support</h4>
+                                    <p style="margin: 0;">support@stackly.in</p>
+                                </div>
+                            </li>
+                            <li style="display: flex; align-items: flex-start; gap: 16px;">
+                                <div class="card-icon" style="width: 48px; height: 48px; min-width: 48px; flex-shrink: 0; margin: 0;"><i class="ph-fill ph-map-pin"></i></div>
+                                <div>
+                                    <h4 style="margin-bottom: 4px;">Office Address</h4>
+                                    <p style="margin: 0;">123, Agri Tech Park, Tidel Road, Taramani, Chennai, Tamil Nadu 600113</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <h3>Tamil Nadu Coverage</h3>
+                    <p>We provide localized agricultural support across major farming regions including the Cauvery Delta, Western Ghats foothills, and Southern districts.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="section" style="background-color: var(--accent-light);">
+        <div class="container reveal">
+            <div class="section-header">
+                <h2>Frequently Asked Questions</h2>
+            </div>
+            
+            <div style="max-width: 800px; margin: 0 auto;">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Is this platform free for farmers? <i class="ph-bold ph-caret-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes, the basic advisory, weather forecasts, and market prices are completely free for all farmers in Tamil Nadu.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        How accurate are the weather forecasts? <i class="ph-bold ph-caret-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Our weather data is sourced from highly reliable agricultural meteorological services, providing up to 90% accuracy for localized 7-day forecasts.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Can I get advice for crops not listed? <i class="ph-bold ph-caret-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes, you can use this contact form to send a query about any specific crop, and our agri-experts will reply to you directly.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+        <!-- Footer -->
+    <footer class="footer new-footer">
+        <div class="container">
+            <div class="footer-grid-5">
+                
+                <!-- Col 1: Brand & Social -->
+                <div class="footer-col-brand">
+                    <a href="index.html" class="logo" style="margin-bottom: 16px;">
+                        <img src="assets/images/logo.webp" alt="STACKLY" style="height: 40px; width: auto;">
+                    </a>
+                    <p style="color: #a3b5a7; font-size: 0.95rem; margin-bottom: 24px; line-height: 1.6;">
+                        A premium partner for agricultural success worldwide. Experience farming advisory in unparalleled comfort and quality.
+                    </p>
+                    <div class="social-circles">
+                        <a href="404.html"><i class="ph-bold ph-facebook-logo"></i></a>
+                        <a href="404.html">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" style="margin-top: 2px;">
+                                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                            </svg>
+                        </a>
+                        <a href="404.html"><i class="ph-bold ph-instagram-logo"></i></a>
+                        <a href="404.html"><i class="ph-bold ph-linkedin-logo"></i></a>
+                    </div>
+                </div>
+
+                <!-- Col 2: Quick Links -->
+                <div class="footer-col-links">
+                    <h4 style="color: white; margin-bottom: 20px; font-size: 1.1rem;">Quick Links</h4>
+                    <ul style="list-style: none; padding: 0; margin: 0;">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="crop-advisory.html">Crop Advisory</a></li>
+                        <li><a href="crop-protection.html">Protection</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 3: Company -->
+                <div class="footer-col-links">
+                    <h4 style="color: white; margin-bottom: 20px; font-size: 1.1rem;">Company</h4>
+                    <ul style="list-style: none; padding: 0; margin: 0;">
+                        <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="404.html">Privacy Policy</a></li>
+                        <li><a href="404.html">Terms & Conditions</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 4: Contact -->
+                <div class="footer-col-contact">
+                    <h4 style="color: white; margin-bottom: 20px; font-size: 1.1rem;">Contact</h4>
+                    <ul style="list-style: none; padding: 0; margin: 0; color: #a3b5a7; font-size: 0.95rem;">
+                        <li style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;"><i class="ph-fill ph-envelope-simple" style="font-size: 1.2rem;"></i> support@stackly.in</li>
+                        <li style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;"><i class="ph-fill ph-phone" style="font-size: 1.2rem;"></i> +91 98765 43210</li>
+                        <li style="display: flex; align-items: center; gap: 12px;"><i class="ph-fill ph-map-pin" style="font-size: 1.2rem;"></i> Salem, Tamil Nadu 636008</li>
+                    </ul>
+                </div>
+
+                <!-- Col 5: Newsletter -->
+                <div class="footer-col-newsletter">
+                    <h4 style="color: white; margin-bottom: 20px; font-size: 1.1rem;">Newsletter</h4>
+                    <p style="color: #a3b5a7; font-size: 0.95rem; margin-bottom: 20px; line-height: 1.6;">
+                        Subscribe to receive the latest agricultural updates, exclusive farming offers, and weather news.
+                    </p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Your email address" required class="newsletter-input">
+                        <button onclick="window.location.href='404.html'" type="button" class="btn btn-primary newsletter-btn">Subscribe</button>
+                    </form>
+                </div>
+                
+            </div>
+        </div>
+        
+        <div class="footer-bottom-bar">
+            <div class="container" style="position: relative; display: flex; justify-content: center; align-items: center;">
+                <p style="margin: 0; color: #a3b5a7; font-size: 0.9rem;">&copy; 2026 STACKLY Crop Advisory. All rights reserved.</p>
+                <button class="scroll-top-btn" id="scrollTopBtn" aria-label="Scroll to top">
+                    <i class="ph-bold ph-caret-up"></i>
+                </button>
+            </div>
+        </div>
+    </footer>
+
+    <script src="assets/js/script.js"></script>
+    <script src="assets/js/animations.js"></script>
+    <script>
+        // Form Validation Demo
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            this.style.display = 'none';
+            document.getElementById('formSuccess').style.display = 'block';
+        });
+
+        // FAQ Accordion
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const item = question.parentElement;
+                
+                // Close all others
+                document.querySelectorAll('.faq-item').forEach(otherItem => {
+                    if (otherItem !== item) {
+                        otherItem.classList.remove('active');
+                    }
+                });
+                
+                // Toggle current
+                item.classList.toggle('active');
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STACKLY - Crop Advisory Platform</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/responsive.css">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <style>
+        .weather-card {
+            background: linear-gradient(135deg, var(--primary-green), var(--primary-dark));
+            color: white;
+            border-radius: var(--radius-md);
+            padding: 40px;
+            box-shadow: var(--shadow-md);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .weather-info h2 {
+            color: white;
+            font-size: 4rem;
+            margin: 0;
+            line-height: 1;
+        }
+        .forecast-card {
+            background-color: var(--white);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 24px;
+            text-align: center;
+            transition: var(--transition);
+        }
+        .forecast-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-sm);
+            border-color: var(--primary-green);
+        }
+        @media (max-width: 768px) {
+            .weather-card {
+                flex-direction: column;
+                text-align: center;
+                gap: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo"><img src="assets/images/logo.webp" alt="STACKLY" style="height: 40px; width: auto;"></a>
+            
+            <div class="nav-links">
+                <a href="index.html" class="active">Home</a>
+                <a href="about.html">About</a>
+                <a href="crop-advisory.html">Crop Advisory</a>
+                <a href="crop-protection.html">Protection</a>
+                <a href="blog.html">Blog</a>
+                <a href="contact.html">Contact</a>
+            
+            <div class="mobile-auth-container" style="flex-direction: column; gap: 12px; margin-top: 16px; width: 100%; max-width: 200px;">
+                <a href="login.html" class="desktop-auth-btn btn btn-secondary" style="width: 100%; justify-content: center;"><i class="ph ph-user"></i> Login</a>
+                <a href="register.html" class="desktop-auth-btn btn btn-primary" style="width: 100%; justify-content: center;">Register</a>
+            </div>
+        </div>
+            
+            <div class="nav-actions" style="display: flex; gap: 12px; align-items: center;">
+                <a href="login.html" class="desktop-auth-btn btn btn-secondary" style="padding: 8px 16px;"><i class="ph ph-user"></i> Login</a>
+                <a href="register.html" class="desktop-auth-btn btn btn-primary" style="padding: 8px 16px;">Register</a>
+                <button class="hamburger" aria-label="Menu" style="margin-left: 8px;">
+                    <i class="ph ph-list" style="font-size: 24px;"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" style="padding: 160px 0 100px; background: linear-gradient(rgba(247, 249, 247, 0.9), rgba(247, 249, 247, 0.7)), url('assets/images/hero_farmer.webp') center top/cover no-repeat;">
+        <div class="container text-center reveal">
+            <span class="section-tag">Tamil Nadu Crop Advisory</span>
+            <h1 style="max-width: 800px; margin: 0 auto 24px;">Smart Solutions for <span style="color: var(--primary-green);">Better Harvests</span></h1>
+            <p style="font-size: 1.1rem; max-width: 600px; margin: 0 auto 40px; color: var(--text-dark);">
+                Your trusted companion for expert crop recommendations, real-time weather alerts, pest management, and market insights in Tamil Nadu.
+            </p>
+            <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+                <a href="crop-advisory.html" class="btn btn-primary">Get Started <i class="ph ph-arrow-right"></i></a>
+                <a href="#services" class="btn btn-secondary">Explore Services <i class="ph ph-leaf"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Advisory Features -->
+    <section class="section" style="margin-top: -60px; padding-top: 0;">
+        <div class="container reveal">
+            <div style="background-color: var(--primary-dark); border-radius: var(--radius-md); padding: 40px; color: white;">
+                <div class="grid grid-4 text-center">
+                    <div>
+                        <i class="ph-fill ph-plant" style="font-size: 32px; color: var(--accent-green); margin-bottom: 16px;"></i>
+                        <h4 style="color: white; margin-bottom: 8px;">Expert Advisory</h4>
+                        <p style="color: #a3b5a7; font-size: 0.9rem; margin: 0;">Get advice from agri-experts</p>
+                    </div>
+                    <div>
+                        <i class="ph-fill ph-cloud-sun" style="font-size: 32px; color: var(--accent-green); margin-bottom: 16px;"></i>
+                        <h4 style="color: white; margin-bottom: 8px;">Weather Updates</h4>
+                        <p style="color: #a3b5a7; font-size: 0.9rem; margin: 0;">Real-time weather & alerts</p>
+                    </div>
+                    <div>
+                        <i class="ph-fill ph-book-open" style="font-size: 32px; color: var(--accent-green); margin-bottom: 16px;"></i>
+                        <h4 style="color: white; margin-bottom: 8px;">Crop Guidance</h4>
+                        <p style="color: #a3b5a7; font-size: 0.9rem; margin: 0;">Planning & recommendations</p>
+                    </div>
+                    <div>
+                        <i class="ph-fill ph-currency-inr" style="font-size: 32px; color: var(--accent-green); margin-bottom: 16px;"></i>
+                        <h4 style="color: white; margin-bottom: 8px;">Market Prices</h4>
+                        <p style="color: #a3b5a7; font-size: 0.9rem; margin: 0;">Daily mandi trends</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Weather Overview & 7-Day Forecast (Migrated from Weather-Market) -->
+    <section class="section" style="background-color: var(--white);">
+        <div class="container reveal">
+            <div class="section-header">
+                <span class="section-tag">Live Updates</span>
+                <h2>Farming Weather Insights</h2>
+                <p>Plan your daily farming operations based on real-time localized weather data.</p>
+            </div>
+            
+            <div class="weather-card" style="margin-bottom: 40px;">
+                <div class="weather-info">
+                    <p style="color: rgba(255,255,255,0.8); margin-bottom: 8px;">Coimbatore, Tamil Nadu</p>
+                    <h2>28°C</h2>
+                    <p style="font-size: 1.2rem; margin-top: 8px; color: white;">Partly Cloudy</p>
+                </div>
+                <div style="text-align: center;">
+                    <i class="ph-fill ph-cloud-sun" style="font-size: 100px; color: #FFD54F;"></i>
+                </div>
+                <div>
+                    <div style="display: flex; gap: 24px;">
+                        <div>
+                            <p style="color: rgba(255,255,255,0.8); margin-bottom: 4px; font-size: 0.9rem;">Humidity</p>
+                            <strong style="font-size: 1.2rem;">65%</strong>
+                        </div>
+                        <div>
+                            <p style="color: rgba(255,255,255,0.8); margin-bottom: 4px; font-size: 0.9rem;">Wind</p>
+                            <strong style="font-size: 1.2rem;">12 km/h</strong>
+                        </div>
+                        <div>
+                            <p style="color: rgba(255,255,255,0.8); margin-bottom: 4px; font-size: 0.9rem;">Rainfall</p>
+                            <strong style="font-size: 1.2rem;">0 mm</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 style="margin-bottom: 24px;">7-Day Weather Forecast</h3>
+            <div class="grid grid-4" id="forecastGrid">
+                <div class="forecast-card">
+                    <p style="font-weight: 600; margin-bottom: 8px;">Tomorrow</p>
+                    <i class="ph-fill ph-cloud-rain" style="font-size: 40px; color: #64B5F6; margin-bottom: 16px;"></i>
+                    <h3 style="margin-bottom: 4px;">26°C</h3>
+                    <p style="font-size: 0.85rem; margin: 0;">Light Rain</p>
+                </div>
+                <div class="forecast-card">
+                    <p style="font-weight: 600; margin-bottom: 8px;">Wednesday</p>
+                    <i class="ph-fill ph-cloud-sun" style="font-size: 40px; color: #FFD54F; margin-bottom: 16px;"></i>
+                    <h3 style="margin-bottom: 4px;">29°C</h3>
+                    <p style="font-size: 0.85rem; margin: 0;">Partly Cloudy</p>
+                </div>
+                <div class="forecast-card">
+                    <p style="font-weight: 600; margin-bottom: 8px;">Thursday</p>
+                    <i class="ph-fill ph-sun" style="font-size: 40px; color: #FFA000; margin-bottom: 16px;"></i>
+                    <h3 style="margin-bottom: 4px;">32°C</h3>
+                    <p style="font-size: 0.85rem; margin: 0;">Sunny</p>
+                </div>
+                <div class="forecast-card">
+                    <p style="font-weight: 600; margin-bottom: 8px;">Friday</p>
+                    <i class="ph-fill ph-sun" style="font-size: 40px; color: #FFA000; margin-bottom: 16px;"></i>
+                    <h3 style="margin-bottom: 4px;">33°C</h3>
+                    <p style="font-size: 0.85rem; margin: 0;">Hot & Clear</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services -->
+    <section id="services" class="section">
+        <div class="container reveal">
+            <div class="section-header">
+                <span class="section-tag">What We Offer</span>
+                <h2>Smart Services for <span style="color: var(--primary-green);">Every Farmer</span></h2>
+                <p>Empowering farmers in Tamil Nadu with technology, knowledge, and local expertise to improve yield and profitability.</p>
+            </div>
+            
+            <div class="grid grid-3">
+                <a href="crop-advisory.html" class="card text-center">
+                    <div class="card-icon" style="margin: 0 auto 24px;">
+                        <i class="ph-fill ph-plant"></i>
+                    </div>
+                    <h3>Crop Advisory</h3>
+                    <p>Personalized crop advice based on soil, season & location.</p>
+                    <span style="color: var(--primary-green); font-weight: 600;">Explore <i class="ph ph-arrow-right"></i></span>
+                </a>
+                
+                <a href="crop-protection.html" class="card text-center">
+                    <div class="card-icon" style="margin: 0 auto 24px;">
+                        <i class="ph-fill ph-bug"></i>
+                    </div>
+                    <h3>Pest & Disease</h3>
+                    <p>Identify pests & diseases and get expert control solutions.</p>
+                    <span style="color: var(--primary-green); font-weight: 600;">Explore <i class="ph ph-arrow-right"></i></span>
+                </a>
+
+                <a href="blog.html" class="card text-center">
+                    <div class="card-icon" style="margin: 0 auto 24px;">
+                        <i class="ph-fill ph-newspaper"></i>
+                    </div>
+                    <h3>Knowledge Hub</h3>
+                    <p>Articles, videos & blogs to grow your farming knowledge.</p>
+                    <span style="color: var(--primary-green); font-weight: 600;">Explore <i class="ph ph-arrow-right"></i></span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Popular Crops -->
+    <section class="section" style="background-color: var(--white);">
+        <div class="container reveal">
+            <div class="section-header">
+                <span class="section-tag">Explore</span>
+                <h2>Popular Crops in Tamil Nadu</h2>
+            </div>
+            
+            <div class="grid grid-3">
+                <div class="card" style="padding: 0; overflow: hidden;">
+                    <img src="assets/images/crop_paddy.webp" alt="Paddy" style="width: 100%; height: 200px; object-fit: cover;">
+                    <div style="padding: 24px;">
+                        <h3 style="margin-bottom: 8px;">Paddy (Rice)</h3>
+                        <p style="font-size: 0.9rem; margin-bottom: 16px;">Kharif, Rabi, Summer</p>
+                        <a href="crop-advisory.html?crop=paddy" class="btn btn-secondary" style="padding: 8px 16px; font-size: 0.9rem;">View Advisory</a>
+                    </div>
+                </div>
+                
+                <div class="card" style="padding: 0; overflow: hidden;">
+                    <img src="assets/images/crop_sugarcane.webp" alt="Sugarcane" style="width: 100%; height: 200px; object-fit: cover;">
+                    <div style="padding: 24px;">
+                        <h3 style="margin-bottom: 8px;">Sugarcane</h3>
+                        <p style="font-size: 0.9rem; margin-bottom: 16px;">Year-round</p>
+                        <a href="crop-advisory.html?crop=sugarcane" class="btn btn-secondary" style="padding: 8px 16px; font-size: 0.9rem;">View Advisory</a>
+                    </div>
+                </div>
+                
+                <div class="card" style="padding: 0; overflow: hidden;">
+                    <img src="assets/images/crop_banana.webp" alt="Banana" style="width: 100%; height: 200px; object-fit: cover;">
+                    <div style="padding: 24px;">
+                        <h3 style="margin-bottom: 8px;">Banana</h3>
+                        <p style="font-size: 0.9rem; margin-bottom: 16px;">Year-round</p>
+                        <a href="crop-advisory.html?crop=banana" class="btn btn-secondary" style="padding: 8px 16px; font-size: 0.9rem;">View Advisory</a>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-8">
+                <a href="crop-advisory.html" class="btn btn-primary">View All Crops</a>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- How It Works -->
+    <section class="section" style="background-color: var(--accent-light);">
+        <div class="container reveal text-center">
+            <span class="section-tag">Simple Process</span>
+            <h2 style="margin-bottom: 48px;">How STACKLY Works</h2>
+            <div class="grid grid-4 text-center">
+                <div class="card" style="border: none; background: transparent; box-shadow: none;">
+                    <div style="width: 64px; height: 64px; background: var(--primary-green); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: bold; margin: 0 auto 16px;">1</div>
+                    <h3 style="margin-bottom: 8px;">Create Profile</h3>
+                    <p style="font-size: 0.95rem; color: var(--text-dark);">Register and add your farm location and soil type.</p>
+                </div>
+                <div class="card" style="border: none; background: transparent; box-shadow: none;">
+                    <div style="width: 64px; height: 64px; background: var(--primary-green); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: bold; margin: 0 auto 16px;">2</div>
+                    <h3 style="margin-bottom: 8px;">Add Crops</h3>
+                    <p style="font-size: 0.95rem; color: var(--text-dark);">Select the crops you are currently growing or planning.</p>
+                </div>
+                <div class="card" style="border: none; background: transparent; box-shadow: none;">
+                    <div style="width: 64px; height: 64px; background: var(--primary-green); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: bold; margin: 0 auto 16px;">3</div>
+                    <h3 style="margin-bottom: 8px;">Get Alerts</h3>
+                    <p style="font-size: 0.95rem; color: var(--text-dark);">Receive timely weather, pest, and irrigation alerts.</p>
+                </div>
+                <div class="card" style="border: none; background: transparent; box-shadow: none;">
+                    <div style="width: 64px; height: 64px; background: var(--primary-green); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: bold; margin: 0 auto 16px;">4</div>
+                    <h3 style="margin-bottom: 8px;">Better Yield</h3>
+                    <p style="font-size: 0.95rem; color: var(--text-dark);">Apply expert advice to maximize your harvest quality.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="section" style="background-color: var(--white);">
+        <div class="container reveal">
+            <div class="section-header text-center" style="max-width: 600px; margin: 0 auto 48px;">
+                <span class="section-tag">Testimonials</span>
+                <h2>Farmer Success Stories</h2>
+            </div>
+            <div class="grid grid-3">
+                <div class="card" style="background: var(--bg-color); position: relative; border-radius: 16px; padding: 32px;">
+                    <i class="ph-fill ph-quotes" style="font-size: 40px; color: rgba(37, 93, 55, 0.1); position: absolute; top: 20px; right: 20px;"></i>
+                    <p style="font-style: italic; margin-bottom: 24px; position: relative; z-index: 1; color: var(--text-dark); line-height: 1.6;">"STACKLY's early warning on stem borer saved my entire paddy crop this season. The pesticide recommendation was spot on."</p>
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <div style="width: 48px; height: 48px; background: var(--primary-green); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 1.2rem;">K</div>
+                        <div>
+                            <h4 style="margin: 0; font-size: 1rem;">Karthik M.</h4>
+                            <p style="margin: 0; font-size: 0.85rem; color: var(--text-light);">Thanjavur District</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card" style="background: var(--bg-color); position: relative; border-radius: 16px; padding: 32px;">
+                    <i class="ph-fill ph-quotes" style="font-size: 40px; color: rgba(37, 93, 55, 0.1); position: absolute; top: 20px; right: 20px;"></i>
+                    <p style="font-style: italic; margin-bottom: 24px; position: relative; z-index: 1; color: var(--text-dark); line-height: 1.6;">"Getting daily market prices for Turmeric helps me decide exactly when to sell. My profits have increased significantly."</p>
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <div style="width: 48px; height: 48px; background: var(--primary-green); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 1.2rem;">S</div>
+                        <div>
+                            <h4 style="margin: 0; font-size: 1rem;">Selvam R.</h4>
+                            <p style="margin: 0; font-size: 0.85rem; color: var(--text-light);">Erode District</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card" style="background: var(--bg-color); position: relative; border-radius: 16px; padding: 32px;">
+                    <i class="ph-fill ph-quotes" style="font-size: 40px; color: rgba(37, 93, 55, 0.1); position: absolute; top: 20px; right: 20px;"></i>
+                    <p style="font-style: italic; margin-bottom: 24px; position: relative; z-index: 1; color: var(--text-dark); line-height: 1.6;">"The weather forecasting is incredibly accurate. I now plan my irrigation and fertilizer application without worrying about sudden rain."</p>
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <div style="width: 48px; height: 48px; background: var(--primary-green); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 1.2rem;">P</div>
+                        <div>
+                            <h4 style="margin: 0; font-size: 1rem;">Prakash V.</h4>
+                            <p style="margin: 0; font-size: 0.85rem; color: var(--text-light);">Madurai District</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Govt Schemes -->
+    <section class="section" style="background-color: var(--bg-color);">
+        <div class="container reveal">
+            <div class="section-header">
+                <span class="section-tag">Updates</span>
+                <h2>Government Schemes & Subsidies</h2>
+                <p>Stay informed about the latest agricultural schemes and financial support from the Tamil Nadu Government.</p>
+            </div>
+            <div class="grid grid-2">
+                <div class="card" style="display: flex; gap: 20px; align-items: flex-start; padding: 32px; border-radius: 16px;">
+                    <div style="background: rgba(37, 93, 55, 0.1); padding: 20px; border-radius: 16px; color: var(--primary-green);">
+                        <i class="ph-fill ph-bank" style="font-size: 40px;"></i>
+                    </div>
+                    <div>
+                        <h3 style="margin-bottom: 12px; font-size: 1.3rem;">PM-KISAN Update</h3>
+                        <p style="font-size: 0.95rem; margin-bottom: 16px; color: var(--text-dark); line-height: 1.5;">The 15th installment of the PM-Kisan Samman Nidhi has been released. Check your status and ensure e-KYC is complete.</p>
+                        <a href="404.html" style="color: var(--primary-green); font-weight: 600; font-size: 0.95rem; display: inline-flex; align-items: center; gap: 4px;">Read More <i class="ph ph-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="card" style="display: flex; gap: 20px; align-items: flex-start; padding: 32px; border-radius: 16px;">
+                    <div style="background: rgba(37, 93, 55, 0.1); padding: 20px; border-radius: 16px; color: var(--primary-green);">
+                        <i class="ph-fill ph-tractor" style="font-size: 40px;"></i>
+                    </div>
+                    <div>
+                        <h3 style="margin-bottom: 12px; font-size: 1.3rem;">Agri Machinery Subsidy</h3>
+                        <p style="font-size: 0.95rem; margin-bottom: 16px; color: var(--text-dark); line-height: 1.5;">TN Govt announces up to 50% subsidy for purchasing tractors, rotavators, and other essential farm equipment.</p>
+                        <a href="404.html" style="color: var(--primary-green); font-weight: 600; font-size: 0.95rem; display: inline-flex; align-items: center; gap: 4px;">Read More <i class="ph ph-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- App Promo -->
+    <section class="section" style="background-color: var(--primary-green); color: white; overflow: hidden; padding: 80px 0;">
+        <div class="container reveal">
+            <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 40px;">
+                <div style="flex: 1; min-width: 300px;">
+                    <span class="section-tag" style="background: rgba(255,255,255,0.2); color: white;">Mobile App</span>
+                    <h2 style="color: white; margin-bottom: 24px; font-size: 2.5rem; line-height: 1.2;">Farming Advice in Your Pocket</h2>
+                    <p style="color: rgba(255,255,255,0.9); font-size: 1.1rem; margin-bottom: 40px; line-height: 1.6;">Get instant push notifications for weather changes, mandi prices, and pest warnings directly on your smartphone. Available in English and Tamil.</p>
+                    <div style="display: flex; gap: 16px;">
+                        <a href="404.html" class="btn btn-secondary" style="background: white; color: var(--primary-green); display: flex; align-items: center; gap: 8px; border: none; padding: 12px 24px;">
+                            <i class="ph-fill ph-google-play-logo" style="font-size: 24px;"></i> Google Play
+                        </a>
+                        <a href="404.html" class="btn btn-secondary" style="background: transparent; color: white; border: 2px solid white; display: flex; align-items: center; gap: 8px; padding: 12px 24px;">
+                            <i class="ph-fill ph-apple-logo" style="font-size: 24px;"></i> App Store
+                        </a>
+                    </div>
+                </div>
+                <div style="flex: 1; min-width: 300px; text-align: center; position: relative; display: flex; justify-content: center;">
+                    <div style="width: 280px; height: 560px; background: white; border-radius: 40px; border: 12px solid #333; position: relative; box-shadow: 0 20px 40px rgba(0,0,0,0.3); transform: rotate(5deg);">
+                        <!-- Fake App Screen -->
+                        <div style="background: var(--bg-color); height: 100%; border-radius: 28px; overflow: hidden; display: flex; flex-direction: column;">
+                            <div style="background: var(--primary-dark); padding: 24px 20px; color: white; text-align: left;">
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                                    <h4 style="margin: 0; color: white;">STACKLY App</h4>
+                                    <i class="ph-bold ph-list" style="font-size: 20px;"></i>
+                                </div>
+                                <p style="margin: 0; font-size: 0.85rem; opacity: 0.9;">Live Alert: Rain Expected</p>
+                            </div>
+                            <div style="padding: 20px 16px; display: flex; flex-direction: column; gap: 16px; text-align: left;">
+                                <div style="background: white; padding: 16px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+                                    <h5 style="margin: 0 0 8px; color: #ef4444; font-size: 1rem; display: flex; align-items: center; gap: 8px;"><i class="ph-fill ph-warning-circle"></i> Pest Warning</h5>
+                                    <p style="margin: 0; font-size: 0.85rem; color: #666;">High risk of stem borer in your area.</p>
+                                </div>
+                                <div style="background: white; padding: 16px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+                                    <h5 style="margin: 0 0 8px; color: var(--primary-green); font-size: 1rem; display: flex; align-items: center; gap: 8px;"><i class="ph-fill ph-currency-inr"></i> Mandi Prices</h5>
+                                    <p style="margin: 0; font-size: 0.85rem; color: #666;">Paddy (Grade A): ₹2,200/q</p>
+                                </div>
+                                <div style="background: white; padding: 16px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+                                    <h5 style="margin: 0 0 8px; color: #3b82f6; font-size: 1rem; display: flex; align-items: center; gap: 8px;"><i class="ph-fill ph-drop"></i> Irrigation</h5>
+                                    <p style="margin: 0; font-size: 0.85rem; color: #666;">Soil moisture low in Field 2.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats -->
+    <section class="section" style="background-color: var(--primary-dark); color: white;">
+        <div class="container reveal">
+            <div class="grid grid-4 text-center">
+                <div>
+                    <h2 style="color: white; font-size: 3rem; margin-bottom: 8px;" class="counter" data-target="25">0</h2>
+                    <p style="color: #a3b5a7; font-size: 1.1rem; margin: 0;">Thousand Farmers</p>
+                </div>
+                <div>
+                    <h2 style="color: white; font-size: 3rem; margin-bottom: 8px;" class="counter" data-target="150">0</h2>
+                    <p style="color: #a3b5a7; font-size: 1.1rem; margin: 0;">Expert Advisors</p>
+                </div>
+                <div>
+                    <h2 style="color: white; font-size: 3rem; margin-bottom: 8px;" class="counter" data-target="38">0</h2>
+                    <p style="color: #a3b5a7; font-size: 1.1rem; margin: 0;">Districts Covered</p>
+                </div>
+                <div>
+                    <h2 style="color: white; font-size: 3rem; margin-bottom: 8px;">95%</h2>
+                    <p style="color: #a3b5a7; font-size: 1.1rem; margin: 0;">Satisfaction Rate</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call To Action -->
+    <section class="section text-center" style="background-color: var(--accent-light);">
+        <div class="container reveal">
+            <h2 style="margin-bottom: 16px;">Let's Grow Better, Together</h2>
+            <p style="max-width: 600px; margin: 0 auto 32px; font-size: 1.1rem;">Join thousands of farmers in Tamil Nadu who are growing better with smart guidance and expert advice.</p>
+            <a href="register.html" class="desktop-auth-btn btn btn-primary">Join Our Community <i class="ph ph-arrow-right"></i></a>
+        </div>
+    </section>
+
+        <!-- Footer -->
+    <footer class="footer new-footer">
+        <div class="container">
+            <div class="footer-grid-5">
+                
+                <!-- Col 1: Brand & Social -->
+                <div class="footer-col-brand">
+                    <a href="index.html" class="logo" style="margin-bottom: 16px;">
+                        <img src="assets/images/logo.webp" alt="STACKLY" style="height: 40px; width: auto;">
+                    </a>
+                    <p style="color: #a3b5a7; font-size: 0.95rem; margin-bottom: 24px; line-height: 1.6;">
+                        A premium partner for agricultural success worldwide. Experience farming advisory in unparalleled comfort and quality.
+                    </p>
+                    <div class="social-circles">
+                        <a href="404.html"><i class="ph-bold ph-facebook-logo"></i></a>
+                        <a href="404.html">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" style="margin-top: 2px;">
+                                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                            </svg>
+                        </a>
+                        <a href="404.html"><i class="ph-bold ph-instagram-logo"></i></a>
+                        <a href="404.html"><i class="ph-bold ph-linkedin-logo"></i></a>
+                    </div>
+                </div>
+
+                <!-- Col 2: Quick Links -->
+                <div class="footer-col-links">
+                    <h4 style="color: white; margin-bottom: 20px; font-size: 1.1rem;">Quick Links</h4>
+                    <ul style="list-style: none; padding: 0; margin: 0;">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="crop-advisory.html">Crop Advisory</a></li>
+                        <li><a href="crop-protection.html">Protection</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 3: Company -->
+                <div class="footer-col-links">
+                    <h4 style="color: white; margin-bottom: 20px; font-size: 1.1rem;">Company</h4>
+                    <ul style="list-style: none; padding: 0; margin: 0;">
+                        <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="404.html">Privacy Policy</a></li>
+                        <li><a href="404.html">Terms & Conditions</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 4: Contact -->
+                <div class="footer-col-contact">
+                    <h4 style="color: white; margin-bottom: 20px; font-size: 1.1rem;">Contact</h4>
+                    <ul style="list-style: none; padding: 0; margin: 0; color: #a3b5a7; font-size: 0.95rem;">
+                        <li style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;"><i class="ph-fill ph-envelope-simple" style="font-size: 1.2rem;"></i> support@stackly.in</li>
+                        <li style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;"><i class="ph-fill ph-phone" style="font-size: 1.2rem;"></i> +91 98765 43210</li>
+                        <li style="display: flex; align-items: center; gap: 12px;"><i class="ph-fill ph-map-pin" style="font-size: 1.2rem;"></i> Salem, Tamil Nadu 636008</li>
+                    </ul>
+                </div>
+
+                <!-- Col 5: Newsletter -->
+                <div class="footer-col-newsletter">
+                    <h4 style="color: white; margin-bottom: 20px; font-size: 1.1rem;">Newsletter</h4>
+                    <p style="color: #a3b5a7; font-size: 0.95rem; margin-bottom: 20px; line-height: 1.6;">
+                        Subscribe to receive the latest agricultural updates, exclusive farming offers, and weather news.
+                    </p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Your email address" required class="newsletter-input">
+                        <button onclick="window.location.href='404.html'" type="button" class="btn btn-primary newsletter-btn">Subscribe</button>
+                    </form>
+                </div>
+                
+            </div>
+        </div>
+        
+        <div class="footer-bottom-bar">
+            <div class="container" style="position: relative; display: flex; justify-content: center; align-items: center;">
+                <p style="margin: 0; color: #a3b5a7; font-size: 0.9rem;">&copy; 2026 STACKLY Crop Advisory. All rights reserved.</p>
+                <button class="scroll-top-btn" id="scrollTopBtn" aria-label="Scroll to top">
+                    <i class="ph-bold ph-caret-up"></i>
+                </button>
+            </div>
+        </div>
+    </footer>
+
+    <script src="assets/js/script.js"></script>
+    <script src="assets/js/animations.js"></script>
+</body>
+</html>

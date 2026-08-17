@@ -1,0 +1,109 @@
+/* Responsive Styles */
+
+/* Large Desktop */
+@media (max-width: 1200px) {
+    .container {
+        padding: 0 40px;
+    }
+}
+
+/* Tablet Landscape & Small Desktop */
+@media (max-width: 992px) {
+    h1 { font-size: 2.8rem; }
+    h2 { font-size: 2.2rem; }
+    
+    .grid-4 { grid-template-columns: repeat(2, 1fr); }
+    .footer-grid { grid-template-columns: repeat(2, 1fr); gap: 40px 20px; }
+}
+
+/* Tablet Portrait */
+@media (max-width: 768px) {
+    .section { padding: 60px 0; }
+    
+    h1 { font-size: 2.4rem; }
+    h2 { font-size: 1.8rem; }
+    
+    .grid-3 { grid-template-columns: repeat(2, 1fr); }
+    
+    /* Navbar Mobile Menu */
+    .desktop-auth-btn { display: none !important; }
+    .mobile-auth-container { display: flex !important; }
+
+    .nav-links {
+        position: fixed;
+        top: 80px;
+        left: -100%;
+        width: 100%;
+        height: calc(100vh - 80px);
+        background-color: var(--white);
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 40px 20px;
+        overflow-y: auto;
+        gap: 32px;
+        transition: var(--transition);
+        box-shadow: inset 0 5px 10px rgba(0,0,0,0.02);
+    }
+    
+    .nav-links.active {
+        left: 0;
+    }
+    
+    .nav-links a {
+        font-size: 1.2rem;
+    }
+    
+    .hamburger {
+        display: block;
+    }
+}
+
+/* Mobile Devices */
+@media (max-width: 576px) {
+    .container { padding: 0 20px; }
+    
+    .grid-2, .grid-3, .grid-4 { 
+        grid-template-columns: 1fr; 
+    }
+    
+    .footer-grid { 
+        grid-template-columns: 1fr; 
+        text-align: center;
+    }
+    
+    .footer-brand p {
+        margin: 0 auto 20px;
+    }
+    
+    .social-icons {
+        justify-content: center;
+    }
+    
+    .footer-bottom {
+        flex-direction: column;
+        gap: 16px;
+        text-align: center;
+    }
+    
+    .page-banner {
+        padding: 120px 0 60px;
+    }
+}
+
+/* Target specifically 375px screens (e.g. iPhone SE) */
+@media (max-width: 375px) {
+    h1 { font-size: 2rem; }
+    h2 { font-size: 1.6rem; }
+    
+    .container { padding: 0 16px; }
+    
+    .btn {
+        width: 100%;
+        padding: 12px 20px;
+    }
+    
+    .card {
+        padding: 20px;
+    }
+}

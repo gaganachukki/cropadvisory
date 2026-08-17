@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - STACKLY</title>
+    <link rel="stylesheet" href="assets/css/admindashboard.css">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+</head>
+<body>
+
+    <div class="dashboard-layout">
+        
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="index.html" class="logo">
+                    <img src="assets/images/logo.webp" alt="STACKLY" style="height: 32px; width: auto;">
+                </a>
+            </div>
+            
+            <div class="sidebar-profile">
+                <div class="avatar">
+                    <i class="ph-bold ph-shield-check"></i>
+                </div>
+                <div class="profile-info">
+                    <h4>Admin User</h4>
+                    <p>admin@stackly.in</p>
+                    <span class="badge">Admin Panel</span>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <!-- Category 1 -->
+                <div class="nav-category">
+                    <div class="nav-category-title">Main</div>
+                    <a href="404.html" class="nav-item active">
+                        <i class="ph-fill ph-squares-four"></i>
+                        <span>Dashboard</span>
+                    </a>
+                    <a href="404.html" class="nav-item">
+                        <i class="ph-fill ph-users"></i>
+                        <span>Manage Farmers</span>
+                    </a>
+                </div>
+
+                <!-- Category 2 -->
+                <div class="nav-category">
+                    <div class="nav-category-title">Alerts</div>
+                    <a href="404.html" class="nav-item">
+                        <i class="ph-fill ph-bell-ringing"></i>
+                        <span>Push Notifications</span>
+                    </a>
+                    <a href="404.html" class="nav-item">
+                        <i class="ph-fill ph-cloud-warning"></i>
+                        <span>Weather Warnings</span>
+                    </a>
+                </div>
+
+                <!-- Category 3 -->
+                <div class="nav-category">
+                    <div class="nav-category-title">System</div>
+                    <a href="404.html" class="nav-item">
+                        <i class="ph-fill ph-chart-pie-slice"></i>
+                        <span>Analytics</span>
+                    </a>
+                    <a href="404.html" class="nav-item">
+                        <i class="ph-fill ph-gear"></i>
+                        <span>Settings</span>
+                    </a>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            
+            <!-- Topbar -->
+            <header class="topbar">
+                <h2>Stackly Admin Portal</h2>
+                <div class="topbar-actions">
+                    <button onclick="window.location.href='404.html'" class="notification-btn" aria-label="Notifications">
+                        <i class="ph-bold ph-bell"></i>
+                    </button>
+                    <div class="topbar-profile">
+                        <div class="topbar-avatar">A</div>
+                        Admin
+                    </div>
+                </div>
+            </header>
+
+            <!-- Dashboard Container -->
+            <div class="dashboard-container">
+                
+                <!-- Hero Section -->
+                <section class="hero-card" style="background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('../images/hero_farmer_1786940702130.jpg') center/cover;">
+                    <div class="hero-content">
+                        <h1>System Status:<br><span>Online</span> <i class="ph-fill ph-check-circle"></i></h1>
+                        <p>Platform monitoring and farmer management console.</p>
+                        <p class="hero-quote">"Empowering 10,000+ farmers across Tamil Nadu."</p>
+                    </div>
+                    
+                    <div class="hero-stats">
+                        <div class="hero-stat-item">
+                            <i class="ph-fill ph-users"></i>
+                            <div class="hero-stat-info">
+                                <p>Total Registered</p>
+                                <h4>12,450</h4>
+                            </div>
+                        </div>
+                        <div class="hero-stat-item">
+                            <i class="ph-fill ph-map-pin"></i>
+                            <div class="hero-stat-info">
+                                <p>Districts Covered</p>
+                                <h4>38 / 38</h4>
+                            </div>
+                        </div>
+                        <div class="hero-stat-item">
+                            <i class="ph-fill ph-server"></i>
+                            <div class="hero-stat-info">
+                                <p>Server Health</p>
+                                <h4>99.9% Uptime</h4>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Stats Row -->
+                <section class="stats-grid">
+                    
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="stat-icon">
+                                <i class="ph-fill ph-user-plus"></i>
+                            </div>
+                            <h3>New Registrations</h3>
+                        </div>
+                        <div class="stat-value">145</div>
+                        <div class="stat-change positive">
+                            <i class="ph-bold ph-arrow-up"></i> 12% vs last week
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="stat-icon">
+                                <i class="ph-fill ph-warning-circle"></i>
+                            </div>
+                            <h3>Active Pest Alerts</h3>
+                        </div>
+                        <div class="stat-value">12</div>
+                        <div class="stat-change negative">
+                            <i class="ph-bold ph-arrow-up"></i> Critical in Delta Region
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="stat-icon">
+                                <i class="ph-fill ph-envelope-simple-open"></i>
+                            </div>
+                            <h3>SMS Delivered</h3>
+                        </div>
+                        <div class="stat-value">45.2k</div>
+                        <div class="stat-change positive">
+                            <i class="ph-bold ph-arrow-up"></i> Weather updates sent
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="stat-icon">
+                                <i class="ph-fill ph-plant"></i>
+                            </div>
+                            <h3>Top Crop Added</h3>
+                        </div>
+                        <div class="stat-value">Paddy</div>
+                        <div class="stat-change positive">
+                            <i class="ph-bold ph-trend-up"></i> High season planting
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="stat-icon">
+                                <i class="ph-fill ph-activity"></i>
+                            </div>
+                            <h3>Platform Activity</h3>
+                        </div>
+                        <div class="stat-value">High</div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar" style="width: 92%;"></div>
+                        </div>
+                        <div class="stat-change" style="color: var(--dash-text-muted);">
+                            92% concurrent users
+                        </div>
+                    </div>
+
+                </section>
+            </div>
+        </main>
+    </div>
+
+</body>
+</html>
