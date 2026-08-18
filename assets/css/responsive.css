@@ -18,6 +18,23 @@
 
 /* Tablet Portrait */
 @media (max-width: 768px) {
+
+    /* Fix for mobile blank screen issues */
+    html, body {
+        overflow-x: hidden;
+        width: 100%;
+    }
+    
+    .page-banner {
+        display: flex !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
+    
+    .reveal {
+        opacity: 1 !important;
+        transform: none !important;
+    }
     .section { padding: 60px 0; }
     
     h1 { font-size: 2.4rem; }

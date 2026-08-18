@@ -141,6 +141,22 @@
         // Demo Login Validation (Frontend only)
         document.getElementById('loginForm').addEventListener('submit', function(e) {
             e.preventDefault();
+            
+            const usernameInput = document.getElementById('username').value.trim();
+            let name = usernameInput;
+            let email = usernameInput;
+            
+            if(usernameInput.includes('@')) {
+                name = usernameInput.split('@')[0].replace(/[\._]/g, ' ');
+                // Capitalize first letters
+                name = name.replace(/\b\w/g, l => l.toUpperCase());
+            } else {
+                // If they entered a phone number or pure name
+                email = usernameInput + "@example.com";
+            }
+
+            localStorage.setItem('stacklyUser', JSON.stringify({ name: name, email: email }));
+
             // In a real app, validation and fetch to backend happens here.
             // For demo, we redirect based on role.
             if (selectedRole === 'admin') {

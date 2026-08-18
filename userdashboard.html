@@ -6,6 +6,7 @@
     <title>Farmer Dashboard - STACKLY</title>
     <link rel="stylesheet" href="assets/css/userdashboard.css">
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
@@ -13,10 +14,13 @@
         
         <!-- Sidebar -->
         <aside class="sidebar">
-            <div class="sidebar-header">
+            <div class="sidebar-header" style="display: flex; justify-content: space-between; align-items: center;">
                 <a href="index.html" class="logo">
                     <img src="assets/images/logo.webp" alt="STACKLY" style="height: 32px; width: auto;">
                 </a>
+                <button class="sidebar-close" onclick="document.querySelector('.sidebar').classList.remove('open'); return false;" aria-label="Close Menu" style="background: none; border: none; font-size: 24px; cursor: pointer; color: var(--dash-text); display: none;">
+                    <i class="ph-bold ph-x"></i>
+                </button>
             </div>
             
             <div class="sidebar-profile">
@@ -24,8 +28,8 @@
                     <i class="ph-bold ph-user"></i>
                 </div>
                 <div class="profile-info">
-                    <h4>Ramesh Kumar</h4>
-                    <p>ramesh@example.com</p>
+                    <h4 id="sidebar-name">Ramesh Kumar</h4>
+                    <p id="sidebar-email">ramesh@example.com</p>
                     <span class="badge">Farmer Panel</span>
                 </div>
             </div>
@@ -34,11 +38,11 @@
                 <!-- Category 1 -->
                 <div class="nav-category">
                     <div class="nav-category-title">Main</div>
-                    <a href="404.html" class="nav-item active">
+                    <a href="#" class="nav-item active" onclick="switchTab('dashboard', this); return false;">
                         <i class="ph-fill ph-squares-four"></i>
                         <span>Dashboard</span>
                     </a>
-                    <a href="404.html" class="nav-item">
+                    <a href="#" class="nav-item" onclick="switchTab('my-crops', this); return false;">
                         <i class="ph-fill ph-plant"></i>
                         <span>My Crops</span>
                     </a>
@@ -47,11 +51,11 @@
                 <!-- Category 2 -->
                 <div class="nav-category">
                     <div class="nav-category-title">Advisory</div>
-                    <a href="404.html" class="nav-item">
+                    <a href="#" class="nav-item" onclick="switchTab('market-prices', this); return false;">
                         <i class="ph-fill ph-currency-inr"></i>
                         <span>Market Prices</span>
                     </a>
-                    <a href="404.html" class="nav-item">
+                    <a href="#" class="nav-item" onclick="switchTab('weather-alerts', this); return false;">
                         <i class="ph-fill ph-cloud-sun"></i>
                         <span>Weather Alerts</span>
                     </a>
@@ -60,16 +64,22 @@
                 <!-- Category 3 -->
                 <div class="nav-category">
                     <div class="nav-category-title">Resources</div>
-                    <a href="404.html" class="nav-item">
+                    <a href="#" class="nav-item" onclick="switchTab('pest-library', this); return false;">
                         <i class="ph-fill ph-bug"></i>
                         <span>Pest Library</span>
                     </a>
-                    <a href="404.html" class="nav-item">
+                    <a href="#" class="nav-item" onclick="switchTab('farming-guides', this); return false;">
                         <i class="ph-fill ph-book-open"></i>
                         <span>Farming Guides</span>
                     </a>
                 </div>
             </nav>
+            <div style="padding: 24px; border-top: 1px solid var(--dash-border); margin-top: auto;">
+                <a href="#" onclick="localStorage.removeItem('stacklyUser'); window.location.href='index.html'; return false;" class="nav-item" style="color: #d32f2f;">
+                    <i class="ph-bold ph-sign-out"></i>
+                    <span style="font-weight: 600;">Logout</span>
+                </a>
+            </div>
         </aside>
 
         <!-- Main Content -->
@@ -77,25 +87,31 @@
             
             <!-- Topbar -->
             <header class="topbar">
-                <h2>Stackly Farmer Portal</h2>
+                <div style="display: flex; align-items: center; gap: 16px;">
+                    <button class="hamburger" id="sidebarToggle" aria-label="Menu" style="background: none; border: none; font-size: 24px; cursor: pointer; display: none;">
+                        <i class="ph-bold ph-list"></i>
+                    </button>
+                    <h2>Stackly Farmer Portal</h2>
+                    <img src="assets/images/logo.webp" alt="STACKLY" class="mobile-logo" style="height: 24px; width: auto; display: none;">
+                </div>
                 <div class="topbar-actions">
                     <button onclick="window.location.href='404.html'" class="notification-btn" aria-label="Notifications">
                         <i class="ph-bold ph-bell"></i>
                     </button>
                     <div class="topbar-profile">
-                        <div class="topbar-avatar">R</div>
-                        Ramesh
+                        <div class="topbar-avatar" id="topbar-avatar-text">R</div>
+                        <span id="topbar-name">Ramesh</span>
                     </div>
                 </div>
             </header>
 
             <!-- Dashboard Container -->
-            <div class="dashboard-container">
+            <div class="dashboard-container content-section active" id="tab-dashboard">
                 
                 <!-- Hero Section -->
                 <section class="hero-card">
                     <div class="hero-content">
-                        <h1>Welcome back,<br><span>Ramesh!</span> <i class="ph-fill ph-hand-waving" style="color: #ffd54f;"></i></h1>
+                        <h1>Welcome back,<br><span id="hero-name">Ramesh!</span> <i class="ph-fill ph-hand-waving" style="color: #ffd54f;"></i></h1>
                         <p>You're one step closer to a better harvest today.</p>
                         <p class="hero-quote">"Smart farming today, sustainable yield tomorrow."</p>
                     </div>
@@ -125,7 +141,22 @@
                     </div>
                 </section>
 
-                <!-- Stats Row -->
+                
+                <!-- Charts Row -->
+                <section class="grid grid-2" style="gap: 24px; margin-bottom: 32px; padding: 0;">
+                    <div style="background: white; border-radius: var(--radius-md); padding: 24px; border: 1px solid var(--border-color);">
+                        <h3 style="margin-top: 0; margin-bottom: 16px;">Revenue vs Expenses</h3>
+                        <div style="position: relative; height: 300px; width: 100%;"><canvas id="userBarChart"></canvas></div>
+                    </div>
+                    <div style="background: white; border-radius: var(--radius-md); padding: 24px; border: 1px solid var(--border-color); display: flex; flex-direction: column; align-items: center;">
+                        <h3 style="margin-top: 0; margin-bottom: 16px; align-self: flex-start;">Field Area by Crop</h3>
+                        <div style="width: 100%; max-width: 250px;">
+                            <canvas id="userPieChart"></canvas>
+                        </div>
+                    </div>
+                </section>
+
+<!-- Stats Row -->
                 <section class="stats-grid">
                     
                     <div class="stat-card">
@@ -197,9 +228,435 @@
                     </div>
 
                 </section>
-            </div>
+            
+
+                <!-- Extra Content for Dashboard -->
+                <section style="margin-top: 32px;">
+                    <h3 style="margin-bottom: 16px;">Upcoming Tasks</h3>
+                    <div style="background: white; border-radius: var(--radius-md); border: 1px solid var(--border-color); overflow: hidden;">
+                        <table style="width: 100%; border-collapse: collapse; text-align: left;">
+                            <tr style="border-bottom: 1px solid var(--border-color); background: #f8f9fa;"><th style="padding: 16px;">Date</th><th style="padding: 16px;">Crop</th><th style="padding: 16px;">Task</th><th style="padding: 16px;">Status</th></tr>
+                            <tr style="border-bottom: 1px solid var(--border-color);"><td style="padding: 16px;">Tomorrow</td><td style="padding: 16px;">Paddy</td><td style="padding: 16px;">Apply Urea (2nd Split)</td><td style="padding: 16px; color: #ff9800;">Pending</td></tr>
+                            <tr style="border-bottom: 1px solid var(--border-color);"><td style="padding: 16px;">20 Aug 2026</td><td style="padding: 16px;">Groundnut</td><td style="padding: 16px;">Irrigation</td><td style="padding: 16px; color: #ff9800;">Pending</td></tr>
+                            <tr style="border-bottom: 1px solid var(--border-color);"><td style="padding: 16px;">25 Aug 2026</td><td style="padding: 16px;">Cotton</td><td style="padding: 16px;">Scout for Aphids</td><td style="padding: 16px; color: #ff9800;">Pending</td></tr>
+                            <tr style="border-bottom: 1px solid var(--border-color);"><td style="padding: 16px;">15 Aug 2026</td><td style="padding: 16px;">Cotton</td><td style="padding: 16px;">Pesticide Spray</td><td style="padding: 16px; color: #2e7d32;">Completed</td></tr>
+                            <tr style="border-bottom: 1px solid var(--border-color);"><td style="padding: 16px;">10 Aug 2026</td><td style="padding: 16px;">Paddy</td><td style="padding: 16px;">Weeding</td><td style="padding: 16px; color: #2e7d32;">Completed</td></tr>
+                            <tr><td style="padding: 16px;">05 Aug 2026</td><td style="padding: 16px;">Groundnut</td><td style="padding: 16px;">Soil Test</td><td style="padding: 16px; color: #2e7d32;">Completed</td></tr>
+                        </table>
+                    </div>
+                </section>
+
+</div>
+
+              <!-- My Crops Tab -->
+              <div class="content-section" id="tab-my-crops" style="display: none; padding: 24px;">
+                  <h2 style="margin-bottom: 24px;">My Active Crops</h2>
+                  <div class="grid grid-3" style="gap: 24px;">
+                      <div style="background: white; padding: 24px; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+                          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                              <h3 style="margin: 0; color: var(--primary-green);">Paddy (Kharif)</h3>
+                              <span style="background: #e8f5e9; color: #2e7d32; padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: bold;">Healthy</span>
+                          </div>
+                          <p style="margin: 0 0 8px; font-size: 0.9rem;"><strong>Planted:</strong> 12 Jun 2025</p>
+                          <p style="margin: 0 0 16px; font-size: 0.9rem;"><strong>Expected Harvest:</strong> Nov 2025</p>
+                          <div style="width: 100%; background: #eee; height: 8px; border-radius: 4px; overflow: hidden; margin-bottom: 16px;">
+                              <div style="width: 60%; background: var(--primary-green); height: 100%;"></div>
+                          </div>
+                          <button class="btn btn-secondary" style="width: 100%; padding: 8px;">View Insights</button>
+                      </div>
+                      
+                      <div style="background: white; padding: 24px; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+                          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                              <h3 style="margin: 0; color: var(--primary-green);">Groundnut</h3>
+                              <span style="background: #fff3e0; color: #ef6c00; padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: bold;">Needs Water</span>
+                          </div>
+                          <p style="margin: 0 0 8px; font-size: 0.9rem;"><strong>Planted:</strong> 05 Jul 2025</p>
+                          <p style="margin: 0 0 16px; font-size: 0.9rem;"><strong>Expected Harvest:</strong> Oct 2025</p>
+                          <div style="width: 100%; background: #eee; height: 8px; border-radius: 4px; overflow: hidden; margin-bottom: 16px;">
+                              <div style="width: 40%; background: #ff9800; height: 100%;"></div>
+                          </div>
+                          <button class="btn btn-secondary" style="width: 100%; padding: 8px;">View Insights</button>
+                      </div>
+                      
+                      <div style="background: white; padding: 24px; border-radius: var(--radius-md); border: 1px dashed var(--border-color); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; cursor: pointer; transition: 0.3s;">
+                          <div style="width: 48px; height: 48px; background: #f0f7f2; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 16px; color: var(--primary-green);">
+                              <i class="ph-bold ph-plus" style="font-size: 24px;"></i>
+                          </div>
+                          <h4 style="margin: 0; color: var(--text-dark);">Add New Crop</h4>
+                          <p style="margin: 8px 0 0; font-size: 0.9rem; color: var(--text-light);">Start tracking a new field</p>
+                      </div>
+                  </div>
+              
+
+                  <div style="margin-top: 32px;">
+                      <h3 style="margin-bottom: 16px;">Crop History</h3>
+                      <div class="grid grid-2" style="gap: 24px;">
+                          <div style="background: white; padding: 24px; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+                              <h4 style="margin: 0 0 8px; color: var(--text-dark);">Paddy (Rabi 2025)</h4>
+                              <p style="margin: 0 0 16px; font-size: 0.9rem; color: var(--text-light);">Yield: 24 Quintals/Acre <i class="ph-bold ph-trend-up" style="color:#2e7d32;"></i></p>
+                              <button class="btn btn-secondary" style="padding: 6px 12px; font-size: 0.85rem;">View Report</button>
+                          </div>
+                          <div style="background: white; padding: 24px; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+                              <h4 style="margin: 0 0 8px; color: var(--text-dark);">Maize (Kharif 2024)</h4>
+                              <p style="margin: 0 0 16px; font-size: 0.9rem; color: var(--text-light);">Yield: 18 Quintals/Acre <i class="ph-bold ph-trend-down" style="color:#d32f2f;"></i></p>
+                              <button class="btn btn-secondary" style="padding: 6px 12px; font-size: 0.85rem;">View Report</button>
+                          </div>
+                      </div>
+                  </div>
+
+</div>
+
+              <!-- Market Prices Tab -->
+              <div class="content-section" id="tab-market-prices" style="display: none; padding: 24px;">
+                  <h2 style="margin-bottom: 24px;">Live Mandi Prices</h2>
+                  <div style="background: white; border-radius: var(--radius-md); border: 1px solid var(--border-color); overflow: hidden;">
+                      <table style="width: 100%; border-collapse: collapse; text-align: left;">
+                          <thead>
+                              <tr style="background: var(--bg-color); border-bottom: 2px solid var(--border-color);">
+                                  <th style="padding: 16px 24px; font-weight: 600;">Commodity</th>
+                                  <th style="padding: 16px 24px; font-weight: 600;">Mandi (Market)</th>
+                                  <th style="padding: 16px 24px; font-weight: 600;">Price (per Quintal)</th>
+                                  <th style="padding: 16px 24px; font-weight: 600;">Trend</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                              <tr style="border-bottom: 1px solid var(--border-color);">
+                                  <td style="padding: 16px 24px; font-weight: 500;">Paddy (Fine)</td>
+                                  <td style="padding: 16px 24px; color: var(--text-light);">Tiruchirappalli</td>
+                                  <td style="padding: 16px 24px; font-weight: 600;">₹ 2,450</td>
+                                  <td style="padding: 16px 24px; color: #2e7d32;"><i class="ph-bold ph-trend-up"></i> +45</td>
+                              </tr>
+                              <tr style="border-bottom: 1px solid var(--border-color);">
+                                  <td style="padding: 16px 24px; font-weight: 500;">Turmeric (Bulb)</td>
+                                  <td style="padding: 16px 24px; color: var(--text-light);">Erode</td>
+                                  <td style="padding: 16px 24px; font-weight: 600;">₹ 14,200</td>
+                                  <td style="padding: 16px 24px; color: #d32f2f;"><i class="ph-bold ph-trend-down"></i> -120</td>
+                              </tr>
+                              <tr style="border-bottom: 1px solid var(--border-color);">
+                                  <td style="padding: 16px 24px; font-weight: 500;">Groundnut (Pods)</td>
+                                  <td style="padding: 16px 24px; color: var(--text-light);">Villupuram</td>
+                                  <td style="padding: 16px 24px; font-weight: 600;">₹ 6,800</td>
+                                  <td style="padding: 16px 24px; color: #2e7d32;"><i class="ph-bold ph-trend-up"></i> +200</td>
+                              </tr>
+                              <tr>
+                                  <td style="padding: 16px 24px; font-weight: 500;">Cotton (MCU-5)</td>
+                                  <td style="padding: 16px 24px; color: var(--text-light);">Coimbatore</td>
+                                  <td style="padding: 16px 24px; font-weight: 600;">₹ 7,150</td>
+                                  <td style="padding: 16px 24px; color: var(--text-light);"><i class="ph-bold ph-minus"></i> Steady</td>
+                              </tr>
+                          </tbody>
+                      </table>
+                  </div>
+              
+
+                  <div style="margin-top: 32px;" class="grid grid-2">
+                      <div style="background: white; padding: 24px; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+                          <h3 style="margin-top: 0;">Price Trend (Paddy)</h3>
+                          <div style="height: 200px; background: #f8f9fa; display: flex; align-items: center; justify-content: center; border-radius: 4px; border: 1px dashed #ccc;">
+                              <span style="color: var(--text-light);"><i class="ph-bold ph-chart-line-up" style="font-size: 24px;"></i> Chart Placeholder</span>
+                          </div>
+                      </div>
+                      <div style="background: white; padding: 24px; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+                          <h3 style="margin-top: 0;">Market Demands</h3>
+                          <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 12px;">
+                              <li style="display: flex; justify-content: space-between; padding-bottom: 12px; border-bottom: 1px solid #eee;"><span>Organic Turmeric</span> <span style="color: #2e7d32; font-weight: bold;">High Demand</span></li>
+                              <li style="display: flex; justify-content: space-between; padding-bottom: 12px; border-bottom: 1px solid #eee;"><span>Cotton (Long Staple)</span> <span style="color: #2e7d32; font-weight: bold;">High Demand</span></li>
+                              <li style="display: flex; justify-content: space-between;"><span>Sugarcane</span> <span style="color: #ff9800; font-weight: bold;">Moderate</span></li>
+                          </ul>
+                      </div>
+                  </div>
+
+</div>
+
+              <!-- Weather Alerts Tab -->
+              <div class="content-section" id="tab-weather-alerts" style="display: none; padding: 24px;">
+                  <h2 style="margin-bottom: 24px;">Agronomic Weather Alerts</h2>
+                  <div class="grid grid-2" style="gap: 24px;">
+                      <div style="background: #fff3e0; border-left: 4px solid #ff9800; padding: 20px; border-radius: 4px;">
+                          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+                              <i class="ph-fill ph-cloud-rain" style="font-size: 24px; color: #f57c00;"></i>
+                              <h3 style="margin: 0; color: #e65100; font-size: 1.1rem;">Heavy Rain Expected</h3>
+                          </div>
+                          <p style="margin: 0; font-size: 0.95rem; color: #e65100;">Moderate to heavy rainfall expected in the next 48 hours. Please postpone fertilizer application and ensure proper field drainage.</p>
+                      </div>
+                      <div style="background: #e3f2fd; border-left: 4px solid #2196f3; padding: 20px; border-radius: 4px;">
+                          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+                              <i class="ph-fill ph-thermometer" style="font-size: 24px; color: #1976d2;"></i>
+                              <h3 style="margin: 0; color: #0d47a1; font-size: 1.1rem;">High Humidity Alert</h3>
+                          </div>
+                          <p style="margin: 0; font-size: 0.95rem; color: #0d47a1;">Humidity levels crossing 85%. This favors fungal growth in Paddy. Monitor crops closely for Blast disease symptoms.</p>
+                      </div>
+                  </div>
+              
+
+                  <div style="margin-top: 32px;">
+                      <h3 style="margin-bottom: 16px;">7-Day Forecast</h3>
+                      <div class="grid grid-4" style="gap: 16px;">
+                          <div style="background: white; padding: 16px; border-radius: var(--radius-md); border: 1px solid var(--border-color); text-align: center;">
+                              <h4 style="margin: 0 0 8px;">Mon</h4>
+                              <i class="ph-fill ph-cloud-rain" style="font-size: 32px; color: #1976d2; margin-bottom: 8px;"></i>
+                              <p style="margin: 0; font-weight: bold;">28&deg;C / 22&deg;C</p>
+                          </div>
+                          <div style="background: white; padding: 16px; border-radius: var(--radius-md); border: 1px solid var(--border-color); text-align: center;">
+                              <h4 style="margin: 0 0 8px;">Tue</h4>
+                              <i class="ph-fill ph-cloud-sun" style="font-size: 32px; color: #fbc02d; margin-bottom: 8px;"></i>
+                              <p style="margin: 0; font-weight: bold;">31&deg;C / 24&deg;C</p>
+                          </div>
+                          <div style="background: white; padding: 16px; border-radius: var(--radius-md); border: 1px solid var(--border-color); text-align: center;">
+                              <h4 style="margin: 0 0 8px;">Wed</h4>
+                              <i class="ph-fill ph-sun" style="font-size: 32px; color: #fbc02d; margin-bottom: 8px;"></i>
+                              <p style="margin: 0; font-weight: bold;">33&deg;C / 25&deg;C</p>
+                          </div>
+                          <div style="background: white; padding: 16px; border-radius: var(--radius-md); border: 1px solid var(--border-color); text-align: center;">
+                              <h4 style="margin: 0 0 8px;">Thu</h4>
+                              <i class="ph-fill ph-sun" style="font-size: 32px; color: #fbc02d; margin-bottom: 8px;"></i>
+                              <p style="margin: 0; font-weight: bold;">34&deg;C / 25&deg;C</p>
+                          </div>
+                      </div>
+                  </div>
+
+</div>
+
+              <!-- Pest Library Tab -->
+              <div class="content-section" id="tab-pest-library" style="display: none; padding: 24px;">
+                  <h2 style="margin-bottom: 24px;">Common Pests & Diseases</h2>
+                  <div class="grid grid-3" style="gap: 24px;">
+                      <div style="background: white; border: 1px solid var(--border-color); border-radius: var(--radius-md); overflow: hidden;">
+                          <div style="height: 140px; background: url('assets/images/pest_stem_borer.webp') center/cover;"></div>
+                          <div style="padding: 16px;">
+                              <h3 style="margin: 0 0 8px; font-size: 1.1rem;">Stem Borer</h3>
+                              <p style="font-size: 0.85rem; color: var(--text-light); margin: 0 0 16px;">Affects: Paddy, Maize</p>
+                              <button class="btn btn-secondary" style="width: 100%; padding: 6px; font-size: 0.9rem;">View Treatment</button>
+                          </div>
+                      </div>
+                      <div style="background: white; border: 1px solid var(--border-color); border-radius: var(--radius-md); overflow: hidden;">
+                          <div style="height: 140px; background: url('assets/images/pest_aphids.webp') center/cover;"></div>
+                          <div style="padding: 16px;">
+                              <h3 style="margin: 0 0 8px; font-size: 1.1rem;">Aphids</h3>
+                              <p style="font-size: 0.85rem; color: var(--text-light); margin: 0 0 16px;">Affects: Cotton, Vegetables</p>
+                              <button class="btn btn-secondary" style="width: 100%; padding: 6px; font-size: 0.9rem;">View Treatment</button>
+                          </div>
+                      </div>
+                      <div style="background: white; border: 1px dashed var(--border-color); display: flex; flex-direction: column; align-items: center; justify-content: center; border-radius: var(--radius-md); cursor: pointer;">
+                          <i class="ph-fill ph-magnifying-glass" style="font-size: 32px; color: var(--text-light); margin-bottom: 12px;"></i>
+                          <h4 style="margin: 0; color: var(--text-light);">Search Library</h4>
+                      </div>
+                  </div>
+              
+
+                  <div style="margin-top: 32px;">
+                      <h3 style="margin-bottom: 16px;">Recent Community Reports</h3>
+                      <div style="background: white; padding: 16px; border-radius: var(--radius-md); border: 1px solid var(--border-color); display: flex; flex-direction: column; gap: 12px;">
+                          <div style="display: flex; gap: 16px; padding-bottom: 12px; border-bottom: 1px solid #eee;">
+                              <div style="width: 48px; height: 48px; background: #ffebee; color: #d32f2f; border-radius: 50%; display: flex; align-items: center; justify-content: center;"><i class="ph-fill ph-warning-circle" style="font-size: 24px;"></i></div>
+                              <div>
+                                  <h4 style="margin: 0 0 4px;">Fall Armyworm detected in Perambalur</h4>
+                                  <p style="margin: 0; font-size: 0.85rem; color: var(--text-light);">Reported by 5 farmers in your 50km radius. Affecting Maize.</p>
+                              </div>
+                          </div>
+                          <div style="display: flex; gap: 16px;">
+                              <div style="width: 48px; height: 48px; background: #fff3e0; color: #ff9800; border-radius: 50%; display: flex; align-items: center; justify-content: center;"><i class="ph-fill ph-warning-circle" style="font-size: 24px;"></i></div>
+                              <div>
+                                  <h4 style="margin: 0 0 4px;">Mealybug spotting in Erode</h4>
+                                  <p style="margin: 0; font-size: 0.85rem; color: var(--text-light);">Reported by 2 farmers. Affecting Papaya and Cotton.</p>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+
+</div>
+
+              <!-- Farming Guides Tab -->
+              <div class="content-section" id="tab-farming-guides" style="display: none; padding: 24px;">
+                  <h2 style="margin-bottom: 24px;">Expert Farming Guides</h2>
+                  <div style="display: flex; flex-direction: column; gap: 16px;">
+                      <div style="display: flex; align-items: center; justify-content: space-between; background: white; padding: 16px 24px; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+                          <div style="display: flex; align-items: center; gap: 16px;">
+                              <div style="width: 48px; height: 48px; background: #ffebee; color: #d32f2f; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+                                  <i class="ph-fill ph-file-pdf" style="font-size: 24px;"></i>
+                              </div>
+                              <div>
+                                  <h4 style="margin: 0 0 4px;">SRI Method for Paddy Cultivation</h4>
+                                  <p style="margin: 0; font-size: 0.85rem; color: var(--text-light);">System of Rice Intensification techniques (PDF - 2.4MB)</p>
+                              </div>
+                          </div>
+                          <button class="btn btn-secondary" style="padding: 8px 16px;"><i class="ph-bold ph-download-simple"></i> Download</button>
+                      </div>
+                      <div style="display: flex; align-items: center; justify-content: space-between; background: white; padding: 16px 24px; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+                          <div style="display: flex; align-items: center; gap: 16px;">
+                              <div style="width: 48px; height: 48px; background: #e3f2fd; color: #1976d2; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+                                  <i class="ph-fill ph-article" style="font-size: 24px;"></i>
+                              </div>
+                              <div>
+                                  <h4 style="margin: 0 0 4px;">Organic Manure Preparation</h4>
+                                  <p style="margin: 0; font-size: 0.85rem; color: var(--text-light);">Step-by-step guide to making Panchagavya (Article)</p>
+                              </div>
+                          </div>
+                          <button class="btn btn-secondary" style="padding: 8px 16px;"><i class="ph-bold ph-book-open"></i> Read</button>
+                      </div>
+                  </div>
+              
+
+                  <div style="margin-top: 32px;">
+                      <h3 style="margin-bottom: 16px;">Video Tutorials</h3>
+                      <div class="grid grid-2" style="gap: 24px;">
+                          <div style="background: white; border-radius: var(--radius-md); border: 1px solid var(--border-color); overflow: hidden;">
+                              <div style="height: 160px; background: url('assets/images/market_vegetables.webp') center/cover; position: relative;">
+                                  <div style="position: absolute; inset: 0; background: rgba(0,0,0,0.4); display: flex; align-items: center; justify-content: center;"><i class="ph-fill ph-play-circle" style="font-size: 48px; color: white;"></i></div>
+                              </div>
+                              <div style="padding: 16px;">
+                                  <h4 style="margin: 0 0 8px;">Proper Post-Harvest Grading</h4>
+                                  <p style="margin: 0; font-size: 0.85rem; color: var(--text-light);">12 mins &bull; Marketing Board</p>
+                              </div>
+                          </div>
+                          <div style="background: white; border-radius: var(--radius-md); border: 1px solid var(--border-color); overflow: hidden;">
+                              <div style="height: 160px; background: url('assets/images/crop_coconut.webp') center/cover; position: relative;">
+                                  <div style="position: absolute; inset: 0; background: rgba(0,0,0,0.4); display: flex; align-items: center; justify-content: center;"><i class="ph-fill ph-play-circle" style="font-size: 48px; color: white;"></i></div>
+                              </div>
+                              <div style="padding: 16px;">
+                                  <h4 style="margin: 0 0 8px;">Coconut Root Wilt Management</h4>
+                                  <p style="margin: 0; font-size: 0.85rem; color: var(--text-light);">8 mins &bull; TNAU</p>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+
+</div>
+
         </main>
     </div>
 
+
+    <script>
+        function switchTab(tabId, element) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(sec => {
+                sec.style.display = 'none';
+                sec.classList.remove('active');
+            });
+            
+            // Show target section
+            const target = document.getElementById('tab-' + tabId);
+            if (target) {
+                target.style.display = 'block';
+                // Trigger reflow for animation if needed
+                void target.offsetWidth;
+                target.classList.add('active');
+            }
+            
+            // Update active state on nav items
+            const navItems = document.querySelectorAll('.sidebar-nav .nav-item');
+            navItems.forEach(item => {
+                item.classList.remove('active');
+            });
+            if (element) {
+                element.classList.add('active');
+            }
+        }
+    </script>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animation config
+            const animConfig = {
+                duration: 1500,
+                easing: 'easeOutQuart'
+            };
+
+            
+            // Load user data from login
+            const userData = JSON.parse(localStorage.getItem('stacklyUser'));
+            if(userData) {
+                const shortName = userData.name.split(' ')[0];
+                const firstLetter = userData.name.charAt(0).toUpperCase();
+                
+                if(document.getElementById('sidebar-name')) document.getElementById('sidebar-name').innerText = userData.name;
+                if(document.getElementById('sidebar-email')) document.getElementById('sidebar-email').innerText = userData.email;
+                if(document.getElementById('topbar-name')) document.getElementById('topbar-name').innerText = shortName;
+                if(document.getElementById('topbar-avatar-text')) document.getElementById('topbar-avatar-text').innerText = firstLetter;
+                if(document.getElementById('hero-name')) document.getElementById('hero-name').innerText = shortName + "!";
+            }
+
+            // User Bar Chart
+            const ctxBar = document.getElementById('userBarChart');
+            if(ctxBar) {
+                new Chart(ctxBar, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                        datasets: [
+                            {
+                                label: 'Revenue (₹)',
+                                data: [45000, 52000, 48000, 61000, 59000, 72000],
+                                backgroundColor: '#2e7d32',
+                                borderRadius: 4
+                            },
+                            {
+                                label: 'Expenses (₹)',
+                                data: [20000, 22000, 18000, 25000, 21000, 28000],
+                                backgroundColor: '#ef6c00',
+                                borderRadius: 4
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        animation: animConfig,
+                        plugins: {
+                            legend: { position: 'top' }
+                        }
+                    }
+                });
+            }
+
+            // User Pie Chart
+            const ctxPie = document.getElementById('userPieChart');
+            if(ctxPie) {
+                new Chart(ctxPie, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Paddy', 'Groundnut', 'Cotton'],
+                        datasets: [{
+                            data: [60, 25, 15],
+                            backgroundColor: ['#2e7d32', '#ff9800', '#1976d2'],
+                            borderWidth: 0
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: true,
+                        animation: animConfig,
+                        plugins: {
+                            legend: { position: 'bottom' }
+                        },
+                        cutout: '65%'
+                    }
+                });
+            }
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const toggle = document.getElementById('sidebarToggle');
+            const sidebar = document.querySelector('.sidebar');
+            if(toggle && sidebar) {
+                toggle.addEventListener('click', function(e) {
+                    sidebar.classList.toggle('open');
+                    e.stopPropagation();
+                });
+                
+                // close sidebar on outside click
+                document.addEventListener('click', function(e) {
+                    if (window.innerWidth <= 768 && sidebar.classList.contains('open') && !sidebar.contains(e.target) && !toggle.contains(e.target)) {
+                        sidebar.classList.remove('open');
+                    }
+                });
+            }
+        });
+    </script>
 </body>
 </html>

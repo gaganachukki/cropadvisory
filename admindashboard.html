@@ -6,6 +6,7 @@
     <title>Admin Dashboard - STACKLY</title>
     <link rel="stylesheet" href="assets/css/admindashboard.css">
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
@@ -13,10 +14,13 @@
         
         <!-- Sidebar -->
         <aside class="sidebar">
-            <div class="sidebar-header">
+            <div class="sidebar-header" style="display: flex; justify-content: space-between; align-items: center;">
                 <a href="index.html" class="logo">
                     <img src="assets/images/logo.webp" alt="STACKLY" style="height: 32px; width: auto;">
                 </a>
+                <button class="sidebar-close" onclick="document.querySelector('.sidebar').classList.remove('open'); return false;" aria-label="Close Menu" style="background: none; border: none; font-size: 24px; cursor: pointer; color: var(--dash-text); display: none;">
+                    <i class="ph-bold ph-x"></i>
+                </button>
             </div>
             
             <div class="sidebar-profile">
@@ -24,8 +28,8 @@
                     <i class="ph-bold ph-shield-check"></i>
                 </div>
                 <div class="profile-info">
-                    <h4>Admin User</h4>
-                    <p>admin@stackly.in</p>
+                    <h4 id="sidebar-name">Admin User</h4>
+                    <p id="sidebar-email">admin@stackly.in</p>
                     <span class="badge">Admin Panel</span>
                 </div>
             </div>
@@ -34,11 +38,11 @@
                 <!-- Category 1 -->
                 <div class="nav-category">
                     <div class="nav-category-title">Main</div>
-                    <a href="404.html" class="nav-item active">
+                    <a href="#" class="nav-item active" onclick="switchTab('dashboard', this); return false;">
                         <i class="ph-fill ph-squares-four"></i>
                         <span>Dashboard</span>
                     </a>
-                    <a href="404.html" class="nav-item">
+                    <a href="#" class="nav-item" onclick="switchTab('manage-farmers', this); return false;">
                         <i class="ph-fill ph-users"></i>
                         <span>Manage Farmers</span>
                     </a>
@@ -47,11 +51,11 @@
                 <!-- Category 2 -->
                 <div class="nav-category">
                     <div class="nav-category-title">Alerts</div>
-                    <a href="404.html" class="nav-item">
+                    <a href="#" class="nav-item" onclick="switchTab('push-notifications', this); return false;">
                         <i class="ph-fill ph-bell-ringing"></i>
                         <span>Push Notifications</span>
                     </a>
-                    <a href="404.html" class="nav-item">
+                    <a href="#" class="nav-item" onclick="switchTab('weather-warnings', this); return false;">
                         <i class="ph-fill ph-cloud-warning"></i>
                         <span>Weather Warnings</span>
                     </a>
@@ -60,16 +64,22 @@
                 <!-- Category 3 -->
                 <div class="nav-category">
                     <div class="nav-category-title">System</div>
-                    <a href="404.html" class="nav-item">
+                    <a href="#" class="nav-item" onclick="switchTab('analytics', this); return false;">
                         <i class="ph-fill ph-chart-pie-slice"></i>
                         <span>Analytics</span>
                     </a>
-                    <a href="404.html" class="nav-item">
+                    <a href="#" class="nav-item" onclick="switchTab('settings', this); return false;">
                         <i class="ph-fill ph-gear"></i>
                         <span>Settings</span>
                     </a>
                 </div>
             </nav>
+            <div style="padding: 24px; border-top: 1px solid var(--dash-border); margin-top: auto;">
+                <a href="#" onclick="localStorage.removeItem('stacklyUser'); window.location.href='index.html'; return false;" class="nav-item" style="color: #d32f2f;">
+                    <i class="ph-bold ph-sign-out"></i>
+                    <span style="font-weight: 600;">Logout</span>
+                </a>
+            </div>
         </aside>
 
         <!-- Main Content -->
@@ -77,20 +87,26 @@
             
             <!-- Topbar -->
             <header class="topbar">
-                <h2>Stackly Admin Portal</h2>
+                <div style="display: flex; align-items: center; gap: 16px;">
+                    <button class="hamburger" id="sidebarToggle" aria-label="Menu" style="background: none; border: none; font-size: 24px; cursor: pointer; display: none;">
+                        <i class="ph-bold ph-list"></i>
+                    </button>
+                    <h2>Stackly Admin Portal</h2>
+                    <img src="assets/images/logo.webp" alt="STACKLY" class="mobile-logo" style="height: 24px; width: auto; display: none;">
+                </div>
                 <div class="topbar-actions">
                     <button onclick="window.location.href='404.html'" class="notification-btn" aria-label="Notifications">
                         <i class="ph-bold ph-bell"></i>
                     </button>
                     <div class="topbar-profile">
-                        <div class="topbar-avatar">A</div>
-                        Admin
+                        <div class="topbar-avatar" id="topbar-avatar-text">A</div>
+                        <span id="topbar-name">Admin</span>
                     </div>
                 </div>
             </header>
 
             <!-- Dashboard Container -->
-            <div class="dashboard-container">
+            <div class="dashboard-container content-section active" id="tab-dashboard">
                 
                 <!-- Hero Section -->
                 <section class="hero-card" style="background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('../images/hero_farmer_1786940702130.jpg') center/cover;">
@@ -125,7 +141,22 @@
                     </div>
                 </section>
 
-                <!-- Stats Row -->
+                
+                <!-- Charts Row -->
+                <section class="grid grid-2" style="gap: 24px; margin-bottom: 32px; padding: 0;">
+                    <div style="background: white; border-radius: var(--radius-md); padding: 24px; border: 1px solid var(--border-color);">
+                        <h3 style="margin-top: 0; margin-bottom: 16px;">Monthly Registrations</h3>
+                        <div style="position: relative; height: 300px; width: 100%;"><canvas id="adminBarChart"></canvas></div>
+                    </div>
+                    <div style="background: white; border-radius: var(--radius-md); padding: 24px; border: 1px solid var(--border-color); display: flex; flex-direction: column; align-items: center;">
+                        <h3 style="margin-top: 0; margin-bottom: 16px; align-self: flex-start;">Users by District</h3>
+                        <div style="width: 100%; max-width: 250px;">
+                            <canvas id="adminPieChart"></canvas>
+                        </div>
+                    </div>
+                </section>
+
+<!-- Stats Row -->
                 <section class="stats-grid">
                     
                     <div class="stat-card">
@@ -197,9 +228,463 @@
                     </div>
 
                 </section>
-            </div>
+            
+
+                <!-- Extra Content for Dashboard -->
+                <section style="margin-top: 32px;">
+                    <h3 style="margin-bottom: 16px;">Recent System Activity</h3>
+                    <div style="background: white; border-radius: var(--radius-md); border: 1px solid var(--border-color); overflow: hidden;">
+                        <table style="width: 100%; border-collapse: collapse; text-align: left;">
+                            <tr style="border-bottom: 1px solid var(--border-color); background: #f8f9fa;"><th style="padding: 16px;">Timestamp</th><th style="padding: 16px;">Action</th><th style="padding: 16px;">User/System</th><th style="padding: 16px;">Status</th></tr>
+                            <tr style="border-bottom: 1px solid var(--border-color);"><td style="padding: 16px;">10 mins ago</td><td style="padding: 16px;">Bulk SMS Sent (Weather Alert)</td><td style="padding: 16px;">System Auto</td><td style="padding: 16px; color: #2e7d32;">Success (4,521 msgs)</td></tr>
+                            <tr style="border-bottom: 1px solid var(--border-color);"><td style="padding: 16px;">1 hour ago</td><td style="padding: 16px;">New Guide Uploaded</td><td style="padding: 16px;">Admin (R. Anbumani)</td><td style="padding: 16px; color: #2e7d32;">Published</td></tr>
+                            <tr style="border-bottom: 1px solid var(--border-color);"><td style="padding: 16px;">3 hours ago</td><td style="padding: 16px;">Database Sync</td><td style="padding: 16px;">System Auto</td><td style="padding: 16px; color: #2e7d32;">Completed</td></tr>
+                            <tr style="border-bottom: 1px solid var(--border-color);"><td style="padding: 16px;">Yesterday</td><td style="padding: 16px;">New User Registration Anomaly</td><td style="padding: 16px;">Security Bot</td><td style="padding: 16px; color: #ff9800;">Flagged (IP Block)</td></tr>
+                        </table>
+                    </div>
+                </section>
+
+</div>
+
+              <!-- Manage Farmers Tab -->
+              <div class="content-section" id="tab-manage-farmers" style="display: none; padding: 24px;">
+                  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+                      <h2 style="margin: 0;">Registered Farmers</h2>
+                      <button class="btn btn-primary"><i class="ph-bold ph-user-plus"></i> Add Farmer</button>
+                  </div>
+                  <div style="background: white; border-radius: var(--radius-md); border: 1px solid var(--border-color); overflow: hidden;">
+                      <table style="width: 100%; border-collapse: collapse; text-align: left;">
+                          <thead>
+                              <tr style="background: var(--bg-color); border-bottom: 2px solid var(--border-color);">
+                                  <th style="padding: 16px 24px; font-weight: 600;">Farmer ID</th>
+                                  <th style="padding: 16px 24px; font-weight: 600;">Name</th>
+                                  <th style="padding: 16px 24px; font-weight: 600;">Region</th>
+                                  <th style="padding: 16px 24px; font-weight: 600;">Primary Crop</th>
+                                  <th style="padding: 16px 24px; font-weight: 600;">Actions</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                              <tr style="border-bottom: 1px solid var(--border-color);">
+                                  <td style="padding: 16px 24px; color: var(--text-light);">#F-8832</td>
+                                  <td style="padding: 16px 24px; font-weight: 500;">Ramesh Kumar</td>
+                                  <td style="padding: 16px 24px;">Thanjavur</td>
+                                  <td style="padding: 16px 24px;">Paddy</td>
+                                  <td style="padding: 16px 24px;">
+                                      <button style="background: none; border: none; color: var(--primary-green); cursor: pointer; margin-right: 8px;"><i class="ph-bold ph-pencil-simple" style="font-size: 18px;"></i></button>
+                                      <button style="background: none; border: none; color: #d32f2f; cursor: pointer;"><i class="ph-bold ph-trash" style="font-size: 18px;"></i></button>
+                                  </td>
+                              </tr>
+                              <tr style="border-bottom: 1px solid var(--border-color);">
+                                  <td style="padding: 16px 24px; color: var(--text-light);">#F-8833</td>
+                                  <td style="padding: 16px 24px; font-weight: 500;">Velu M.</td>
+                                  <td style="padding: 16px 24px;">Erode</td>
+                                  <td style="padding: 16px 24px;">Turmeric</td>
+                                  <td style="padding: 16px 24px;">
+                                      <button style="background: none; border: none; color: var(--primary-green); cursor: pointer; margin-right: 8px;"><i class="ph-bold ph-pencil-simple" style="font-size: 18px;"></i></button>
+                                      <button style="background: none; border: none; color: #d32f2f; cursor: pointer;"><i class="ph-bold ph-trash" style="font-size: 18px;"></i></button>
+                                  </td>
+                              </tr>
+                              <tr>
+                                  <td style="padding: 16px 24px; color: var(--text-light);">#F-8834</td>
+                                  <td style="padding: 16px 24px; font-weight: 500;">Kannan T.</td>
+                                  <td style="padding: 16px 24px;">Madurai</td>
+                                  <td style="padding: 16px 24px;">Cotton</td>
+                                  <td style="padding: 16px 24px;">
+                                      <button style="background: none; border: none; color: var(--primary-green); cursor: pointer; margin-right: 8px;"><i class="ph-bold ph-pencil-simple" style="font-size: 18px;"></i></button>
+                                      <button style="background: none; border: none; color: #d32f2f; cursor: pointer;"><i class="ph-bold ph-trash" style="font-size: 18px;"></i></button>
+                                  </td>
+                              </tr>
+                          </tbody>
+                      </table>
+                  </div>
+              
+
+                  <div style="margin-top: 32px;">
+                      <h3 style="margin-bottom: 16px;">Farmer Registry</h3>
+                      <div style="background: white; border-radius: var(--radius-md); border: 1px solid var(--border-color); overflow: hidden;">
+                          <div style="padding: 16px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center;">
+                              <input type="text" placeholder="Search by name, ID, or village..." style="padding: 8px 16px; width: 300px; border: 1px solid var(--border-color); border-radius: 4px;">
+                              <button class="btn btn-secondary">Export CSV</button>
+                          </div>
+                          <table style="width: 100%; border-collapse: collapse; text-align: left;">
+                              <tr style="border-bottom: 1px solid var(--border-color); background: #f8f9fa;">
+                                  <th style="padding: 16px;">ID</th><th style="padding: 16px;">Name</th><th style="padding: 16px;">Location</th><th style="padding: 16px;">Primary Crop</th><th style="padding: 16px;">Status</th><th style="padding: 16px;">Actions</th>
+                              </tr>
+                              <tr style="border-bottom: 1px solid var(--border-color);">
+                                  <td style="padding: 16px;">F-2024</td><td style="padding: 16px;">Muthusamy K.</td><td style="padding: 16px;">Salem</td><td style="padding: 16px;">Paddy</td><td style="padding: 16px; color: #2e7d32;">Active</td><td style="padding: 16px;"><a href="#">Edit</a> | <a href="#" style="color:#d32f2f;">Suspend</a></td>
+                              </tr>
+                              <tr style="border-bottom: 1px solid var(--border-color);">
+                                  <td style="padding: 16px;">F-2025</td><td style="padding: 16px;">Rajendran P.</td><td style="padding: 16px;">Erode</td><td style="padding: 16px;">Sugarcane</td><td style="padding: 16px; color: #2e7d32;">Active</td><td style="padding: 16px;"><a href="#">Edit</a> | <a href="#" style="color:#d32f2f;">Suspend</a></td>
+                              </tr>
+                              <tr style="border-bottom: 1px solid var(--border-color);">
+                                  <td style="padding: 16px;">F-2026</td><td style="padding: 16px;">Velmurugan S.</td><td style="padding: 16px;">Thanjavur</td><td style="padding: 16px;">Paddy</td><td style="padding: 16px; color: #ff9800;">Inactive (6m)</td><td style="padding: 16px;"><a href="#">Edit</a> | <a href="#" style="color:#d32f2f;">Suspend</a></td>
+                              </tr>
+                              <tr style="border-bottom: 1px solid var(--border-color);">
+                                  <td style="padding: 16px;">F-2027</td><td style="padding: 16px;">Kannan R.</td><td style="padding: 16px;">Coimbatore</td><td style="padding: 16px;">Cotton</td><td style="padding: 16px; color: #2e7d32;">Active</td><td style="padding: 16px;"><a href="#">Edit</a> | <a href="#" style="color:#d32f2f;">Suspend</a></td>
+                              </tr>
+                          </table>
+                          <div style="padding: 16px; text-align: center; color: var(--text-light); font-size: 0.9rem;">
+                              Showing 4 of 24,500 registered farmers. <a href="#">Load More...</a>
+                          </div>
+                      </div>
+                  </div>
+
+</div>
+
+              <!-- Push Notifications Tab -->
+              <div class="content-section" id="tab-push-notifications" style="display: none; padding: 24px;">
+                  <h2 style="margin-bottom: 24px;">Broadcast Notification</h2>
+                  <div style="background: white; padding: 32px; border-radius: var(--radius-md); border: 1px solid var(--border-color); max-width: 800px;">
+                      <form onsubmit="event.preventDefault(); alert('Notification Sent!');">
+                          <div style="margin-bottom: 20px;">
+                              <label style="display: block; margin-bottom: 8px; font-weight: 600;">Target Audience</label>
+                              <select style="width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 4px;">
+                                  <option>All Registered Farmers</option>
+                                  <option>Cauvery Delta Region</option>
+                                  <option>Western Districts</option>
+                                  <option>Southern Districts</option>
+                              </select>
+                          </div>
+                          <div style="margin-bottom: 20px;">
+                              <label style="display: block; margin-bottom: 8px; font-weight: 600;">Message Title</label>
+                              <input type="text" placeholder="e.g. Government Subsidy Update" style="width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 4px;" required>
+                          </div>
+                          <div style="margin-bottom: 24px;">
+                              <label style="display: block; margin-bottom: 8px; font-weight: 600;">Notification Body</label>
+                              <textarea rows="5" placeholder="Enter message details here..." style="width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 4px; resize: vertical;" required></textarea>
+                          </div>
+                          <div style="display: flex; gap: 16px;">
+                              <button type="submit" class="btn btn-primary"><i class="ph-bold ph-paper-plane-tilt"></i> Send Now</button>
+                              <button type="button" class="btn btn-secondary">Schedule</button>
+                          </div>
+                      </form>
+                  </div>
+              
+
+                  <div style="margin-top: 32px;">
+                      <h3 style="margin-bottom: 16px;">Notification History</h3>
+                      <div style="background: white; border-radius: var(--radius-md); border: 1px solid var(--border-color); overflow: hidden;">
+                          <table style="width: 100%; border-collapse: collapse; text-align: left;">
+                              <tr style="border-bottom: 1px solid var(--border-color); background: #f8f9fa;">
+                                  <th style="padding: 16px;">Campaign Name</th><th style="padding: 16px;">Sent Date</th><th style="padding: 16px;">Target Audience</th><th style="padding: 16px;">Delivery Rate</th><th style="padding: 16px;">Open Rate</th>
+                              </tr>
+                              <tr style="border-bottom: 1px solid var(--border-color);">
+                                  <td style="padding: 16px;">Cyclone Alert (Delta Region)</td><td style="padding: 16px;">12 Aug 2026</td><td style="padding: 16px;">4,500 Farmers</td><td style="padding: 16px;">98.5%</td><td style="padding: 16px;">82%</td>
+                              </tr>
+                              <tr style="border-bottom: 1px solid var(--border-color);">
+                                  <td style="padding: 16px;">Subsidy Scheme Update</td><td style="padding: 16px;">05 Aug 2026</td><td style="padding: 16px;">All Active</td><td style="padding: 16px;">99.1%</td><td style="padding: 16px;">65%</td>
+                              </tr>
+                              <tr style="border-bottom: 1px solid var(--border-color);">
+                                  <td style="padding: 16px;">Market Price Spike (Turmeric)</td><td style="padding: 16px;">28 Jul 2026</td><td style="padding: 16px;">Erode District</td><td style="padding: 16px;">97.2%</td><td style="padding: 16px;">89%</td>
+                              </tr>
+                          </table>
+                      </div>
+                  </div>
+
+</div>
+
+              <!-- Weather Warnings Tab -->
+              <div class="content-section" id="tab-weather-warnings" style="display: none; padding: 24px;">
+                  <h2 style="margin-bottom: 24px;">Active Weather Warnings</h2>
+                  <div class="grid grid-2" style="gap: 24px;">
+                      <div style="background: #fff3e0; padding: 24px; border-radius: var(--radius-md); border: 1px solid #ffcc80;">
+                          <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px;">
+                              <div style="display: flex; gap: 12px; align-items: center;">
+                                  <div style="width: 40px; height: 40px; background: #ffe0b2; color: #ef6c00; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                                      <i class="ph-fill ph-cloud-lightning" style="font-size: 20px;"></i>
+                                  </div>
+                                  <h3 style="margin: 0; color: #ef6c00;">Cyclone Alert</h3>
+                              </div>
+                              <span style="background: #ef6c00; color: white; padding: 4px 8px; border-radius: 4px; font-size: 0.8rem;">High Priority</span>
+                          </div>
+                          <p style="margin: 0 0 16px; font-size: 0.95rem; color: #5d4037;">Coastal districts expected to face heavy winds within 72 hours. Protocol initiated.</p>
+                          <div style="display: flex; gap: 12px;">
+                              <button class="btn" style="background: #ef6c00; color: white; padding: 8px 16px; border: none; border-radius: 4px; cursor: pointer;">Update Status</button>
+                              <button class="btn" style="background: transparent; color: #ef6c00; border: 1px solid #ef6c00; padding: 8px 16px; border-radius: 4px; cursor: pointer;">Cancel Alert</button>
+                          </div>
+                      </div>
+                      <div style="border: 2px dashed var(--border-color); border-radius: var(--radius-md); display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 200px; cursor: pointer;">
+                          <i class="ph-bold ph-plus-circle" style="font-size: 32px; color: var(--primary-green); margin-bottom: 12px;"></i>
+                          <h4 style="margin: 0;">Create New Warning</h4>
+                      </div>
+                  </div>
+              
+
+                  <div style="margin-top: 32px;">
+                      <h3 style="margin-bottom: 16px;">Active Warning Zones</h3>
+                      <div class="grid grid-3" style="gap: 24px;">
+                          <div style="background: #ffebee; border: 1px solid #ffcdd2; padding: 20px; border-radius: var(--radius-md);">
+                              <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                                  <h4 style="margin: 0; color: #d32f2f;">Thanjavur District</h4>
+                                  <span style="background: #d32f2f; color: white; padding: 2px 8px; border-radius: 12px; font-size: 0.75rem;">SEVERE</span>
+                              </div>
+                              <p style="margin: 0 0 16px; font-size: 0.9rem; color: #c62828;">Heavy flooding risk due to Cauvery catchment overflow.</p>
+                              <button class="btn btn-secondary" style="width: 100%; border-color: #d32f2f; color: #d32f2f;">Broadcast Alert</button>
+                          </div>
+                          <div style="background: #fff3e0; border: 1px solid #ffe0b2; padding: 20px; border-radius: var(--radius-md);">
+                              <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                                  <h4 style="margin: 0; color: #e65100;">Coimbatore District</h4>
+                                  <span style="background: #ff9800; color: white; padding: 2px 8px; border-radius: 12px; font-size: 0.75rem;">MODERATE</span>
+                              </div>
+                              <p style="margin: 0 0 16px; font-size: 0.9rem; color: #e65100;">Unseasonal dry spell. Recommend delayed sowing for rainfed crops.</p>
+                              <button class="btn btn-secondary" style="width: 100%; border-color: #ff9800; color: #e65100;">Broadcast Alert</button>
+                          </div>
+                      </div>
+                  </div>
+
+</div>
+
+              <!-- Analytics Tab -->
+              <div class="content-section" id="tab-analytics" style="display: none; padding: 24px;">
+                  <h2 style="margin-bottom: 24px;">Platform Analytics</h2>
+                  <div class="grid grid-3" style="gap: 24px; margin-bottom: 32px;">
+                      <div style="background: white; padding: 24px; border-radius: var(--radius-md); border: 1px solid var(--border-color); display: flex; align-items: center; gap: 16px;">
+                          <div style="width: 56px; height: 56px; background: #e8f5e9; color: var(--primary-green); border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+                              <i class="ph-fill ph-users" style="font-size: 28px;"></i>
+                          </div>
+                          <div>
+                              <p style="margin: 0; font-size: 0.9rem; color: var(--text-light);">Total Users</p>
+                              <h3 style="margin: 0; font-size: 1.8rem;">14,592</h3>
+                          </div>
+                      </div>
+                      <div style="background: white; padding: 24px; border-radius: var(--radius-md); border: 1px solid var(--border-color); display: flex; align-items: center; gap: 16px;">
+                          <div style="width: 56px; height: 56px; background: #e3f2fd; color: #1976d2; border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+                              <i class="ph-fill ph-chat-circle-text" style="font-size: 28px;"></i>
+                          </div>
+                          <div>
+                              <p style="margin: 0; font-size: 0.9rem; color: var(--text-light);">Advisory Queries</p>
+                              <h3 style="margin: 0; font-size: 1.8rem;">3,240</h3>
+                          </div>
+                      </div>
+                      <div style="background: white; padding: 24px; border-radius: var(--radius-md); border: 1px solid var(--border-color); display: flex; align-items: center; gap: 16px;">
+                          <div style="width: 56px; height: 56px; background: #fff3e0; color: #ef6c00; border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+                              <i class="ph-fill ph-plant" style="font-size: 28px;"></i>
+                          </div>
+                          <div>
+                              <p style="margin: 0; font-size: 0.9rem; color: var(--text-light);">Crops Tracked</p>
+                              <h3 style="margin: 0; font-size: 1.8rem;">28,915</h3>
+                          </div>
+                      </div>
+                  </div>
+                  <div style="background: white; padding: 32px; border-radius: var(--radius-md); border: 1px solid var(--border-color); text-align: center; height: 300px; display: flex; align-items: center; justify-content: center;">
+                      <p style="color: var(--text-light);"><i class="ph-fill ph-chart-line-up" style="font-size: 48px; margin-bottom: 16px; display: block;"></i> User Engagement Chart <br><small>(Chart.js integration placeholder)</small></p>
+                  </div>
+              
+
+                  <div style="margin-top: 32px;" class="grid grid-2">
+                      <div style="background: white; padding: 24px; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+                          <h3 style="margin-top: 0;">Platform Traffic Sources</h3>
+                          <div style="height: 200px; background: #f8f9fa; display: flex; align-items: center; justify-content: center; border-radius: 4px; border: 1px dashed #ccc;">
+                              <span style="color: var(--text-light);"><i class="ph-bold ph-chart-pie" style="font-size: 24px;"></i> Traffic Pie Chart Placeholder</span>
+                          </div>
+                      </div>
+                      <div style="background: white; padding: 24px; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+                          <h3 style="margin-top: 0;">Top Search Queries</h3>
+                          <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 12px;">
+                              <li style="display: flex; justify-content: space-between; padding-bottom: 12px; border-bottom: 1px solid #eee;"><span>"Paddy stem borer treatment"</span> <span>1,245 searches</span></li>
+                              <li style="display: flex; justify-content: space-between; padding-bottom: 12px; border-bottom: 1px solid #eee;"><span>"Today tomato price Salem"</span> <span>982 searches</span></li>
+                              <li style="display: flex; justify-content: space-between; padding-bottom: 12px; border-bottom: 1px solid #eee;"><span>"PM Kisan subsidy check"</span> <span>850 searches</span></li>
+                              <li style="display: flex; justify-content: space-between;"><span>"Groundnut irrigation schedule"</span> <span>620 searches</span></li>
+                          </ul>
+                      </div>
+                  </div>
+
+</div>
+
+              <!-- Settings Tab -->
+              <div class="content-section" id="tab-settings" style="display: none; padding: 24px;">
+                  <h2 style="margin-bottom: 24px;">System Settings</h2>
+                  <div style="background: white; padding: 32px; border-radius: var(--radius-md); border: 1px solid var(--border-color); max-width: 600px;">
+                      <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 20px; border-bottom: 1px solid var(--border-color); margin-bottom: 20px;">
+                          <div>
+                              <h4 style="margin: 0 0 4px;">Maintenance Mode</h4>
+                              <p style="margin: 0; font-size: 0.9rem; color: var(--text-light);">Disable user login during system updates</p>
+                          </div>
+                          <div style="width: 48px; height: 24px; background: #ccc; border-radius: 12px; position: relative; cursor: pointer;">
+                              <div style="width: 20px; height: 20px; background: white; border-radius: 50%; position: absolute; top: 2px; left: 2px;"></div>
+                          </div>
+                      </div>
+                      <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 20px; border-bottom: 1px solid var(--border-color); margin-bottom: 20px;">
+                          <div>
+                              <h4 style="margin: 0 0 4px;">Auto-Approve Registrations</h4>
+                              <p style="margin: 0; font-size: 0.9rem; color: var(--text-light);">Automatically verify farmer phone numbers</p>
+                          </div>
+                          <div style="width: 48px; height: 24px; background: var(--primary-green); border-radius: 12px; position: relative; cursor: pointer;">
+                              <div style="width: 20px; height: 20px; background: white; border-radius: 50%; position: absolute; top: 2px; right: 2px;"></div>
+                          </div>
+                      </div>
+                      <button class="btn btn-secondary" style="width: 100%;">Save Preferences</button>
+                  </div>
+              
+
+                  <div style="margin-top: 32px;">
+                      <h3 style="margin-bottom: 16px;">Advanced Configuration</h3>
+                      <div style="background: white; padding: 24px; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+                          <div style="display: flex; align-items: center; justify-content: space-between; padding-bottom: 16px; border-bottom: 1px solid #eee; margin-bottom: 16px;">
+                              <div>
+                                  <h4 style="margin: 0 0 4px;">Automated Weather Sync</h4>
+                                  <p style="margin: 0; font-size: 0.85rem; color: var(--text-light);">Fetch live data from IMD servers every hour.</p>
+                              </div>
+                              <div>
+                                  <input type="checkbox" checked style="width: 20px; height: 20px; accent-color: var(--primary-green);">
+                              </div>
+                          </div>
+                          <div style="display: flex; align-items: center; justify-content: space-between; padding-bottom: 16px; border-bottom: 1px solid #eee; margin-bottom: 16px;">
+                              <div>
+                                  <h4 style="margin: 0 0 4px;">Maintenance Mode</h4>
+                                  <p style="margin: 0; font-size: 0.85rem; color: var(--text-light);">Disable user logins and display maintenance screen.</p>
+                              </div>
+                              <div>
+                                  <input type="checkbox" style="width: 20px; height: 20px; accent-color: var(--primary-green);">
+                              </div>
+                          </div>
+                          <div style="display: flex; align-items: center; justify-content: space-between;">
+                              <div>
+                                  <h4 style="margin: 0 0 4px;">API Rate Limiting</h4>
+                                  <p style="margin: 0; font-size: 0.85rem; color: var(--text-light);">Throttle third-party integration requests.</p>
+                              </div>
+                              <div>
+                                  <select style="padding: 8px; border: 1px solid var(--border-color); border-radius: 4px;">
+                                      <option>Standard (100/min)</option>
+                                      <option>Aggressive (50/min)</option>
+                                      <option>Unlimited</option>
+                                  </select>
+                              </div>
+                          </div>
+                          <div style="margin-top: 24px;">
+                              <button class="btn btn-primary">Save Configuration</button>
+                          </div>
+                      </div>
+                  </div>
+
+</div>
+
         </main>
     </div>
 
+
+    <script>
+        function switchTab(tabId, element) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(sec => {
+                sec.style.display = 'none';
+                sec.classList.remove('active');
+            });
+            
+            // Show target section
+            const target = document.getElementById('tab-' + tabId);
+            if (target) {
+                target.style.display = 'block';
+                // Trigger reflow for animation if needed
+                void target.offsetWidth;
+                target.classList.add('active');
+            }
+            
+            // Update active state on nav items
+            const navItems = document.querySelectorAll('.sidebar-nav .nav-item');
+            navItems.forEach(item => {
+                item.classList.remove('active');
+            });
+            if (element) {
+                element.classList.add('active');
+            }
+        }
+    </script>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const animConfig = {
+                duration: 1500,
+                easing: 'easeOutQuart'
+            };
+
+            
+            // Load user data from login
+            const userData = JSON.parse(localStorage.getItem('stacklyUser'));
+            if(userData) {
+                const shortName = userData.name.split(' ')[0];
+                const firstLetter = userData.name.charAt(0).toUpperCase();
+                
+                if(document.getElementById('sidebar-name')) document.getElementById('sidebar-name').innerText = userData.name;
+                if(document.getElementById('sidebar-email')) document.getElementById('sidebar-email').innerText = userData.email;
+                if(document.getElementById('topbar-name')) document.getElementById('topbar-name').innerText = shortName;
+                if(document.getElementById('topbar-avatar-text')) document.getElementById('topbar-avatar-text').innerText = firstLetter;
+            }
+
+            // Admin Bar Chart
+            const ctxBar = document.getElementById('adminBarChart');
+            if(ctxBar) {
+                new Chart(ctxBar, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                        datasets: [
+                            {
+                                label: 'New Farmers',
+                                data: [1200, 1900, 3000, 5000, 4200, 6100],
+                                backgroundColor: '#194025',
+                                borderRadius: 4
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        animation: animConfig,
+                        plugins: {
+                            legend: { display: false }
+                        }
+                    }
+                });
+            }
+
+            // Admin Pie Chart
+            const ctxPie = document.getElementById('adminPieChart');
+            if(ctxPie) {
+                new Chart(ctxPie, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Thanjavur', 'Erode', 'Coimbatore', 'Madurai'],
+                        datasets: [{
+                            data: [35, 25, 20, 20],
+                            backgroundColor: ['#2e7d32', '#ef6c00', '#1976d2', '#673ab7'],
+                            borderWidth: 0
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: true,
+                        animation: animConfig,
+                        plugins: {
+                            legend: { position: 'bottom' }
+                        },
+                        cutout: '65%'
+                    }
+                });
+            }
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const toggle = document.getElementById('sidebarToggle');
+            const sidebar = document.querySelector('.sidebar');
+            if(toggle && sidebar) {
+                toggle.addEventListener('click', function(e) {
+                    sidebar.classList.toggle('open');
+                    e.stopPropagation();
+                });
+                
+                // close sidebar on outside click
+                document.addEventListener('click', function(e) {
+                    if (window.innerWidth <= 768 && sidebar.classList.contains('open') && !sidebar.contains(e.target) && !toggle.contains(e.target)) {
+                        sidebar.classList.remove('open');
+                    }
+                });
+            }
+        });
+    </script>
 </body>
 </html>

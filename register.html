@@ -80,7 +80,7 @@
             <form id="registerForm" style="text-align: left;">
                 <div class="form-group">
                     <label class="form-label">Full Name</label>
-                    <input type="text" id="name" class="form-control" required placeholder="Enter your full name">
+                    <input type="text" id="name" class="form-control" required placeholder="Enter your full name" oninput="this.value = this.value.replace(/[^a-zA-Z\s]/g, '');">
                 </div>
 
                 <div class="form-group">
@@ -139,12 +139,8 @@
         // Demo Register Validation (Frontend only)
         document.getElementById('registerForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            // Redirect to dashboard on successful registration
-            if (selectedRole === 'admin') {
-                window.location.href = 'admindashboard.html';
-            } else {
-                window.location.href = 'userdashboard.html';
-            }
+            // Redirect to login page on successful registration
+            window.location.href = 'login.html';
         });
     </script>
 </body>

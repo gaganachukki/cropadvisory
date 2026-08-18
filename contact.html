@@ -69,8 +69,8 @@
                 <a href="contact.html" class="active">Contact</a>
             
             <div class="mobile-auth-container" style="flex-direction: column; gap: 12px; margin-top: 16px; width: 100%; max-width: 200px;">
-                <a href="login.html" class="desktop-auth-btn btn btn-secondary" style="width: 100%; justify-content: center;"><i class="ph ph-user"></i> Login</a>
-                <a href="register.html" class="desktop-auth-btn btn btn-primary" style="width: 100%; justify-content: center;">Register</a>
+                <a href="login.html" class="btn btn-secondary" style="width: 100%; justify-content: center;"><i class="ph ph-user"></i> Login</a>
+                <a href="register.html" class="btn btn-primary" style="width: 100%; justify-content: center;">Register</a>
             </div>
         </div>
             
@@ -108,11 +108,11 @@
                         <div class="grid grid-2" style="gap: 20px;">
                             <div class="form-group">
                                 <label class="form-label">Farmer Name *</label>
-                                <input type="text" id="name" class="form-control" required>
+                                <input type="text" id="name" class="form-control" required oninput="this.value = this.value.replace(/[^a-zA-Z\s]/g, '');">
                             </div>
                             <div class="form-group">
                                 <label class="form-label">Phone Number *</label>
-                                <input type="tel" id="phone" class="form-control" required pattern="[0-9]{10}">
+                                <input type="tel" id="phone" class="form-control" required pattern="[0-9]{10}" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
                             </div>
                         </div>
                         
@@ -172,7 +172,7 @@
                                 <div class="card-icon" style="width: 48px; height: 48px; min-width: 48px; flex-shrink: 0; margin: 0;"><i class="ph-fill ph-map-pin"></i></div>
                                 <div>
                                     <h4 style="margin-bottom: 4px;">Office Address</h4>
-                                    <p style="margin: 0;">123, Agri Tech Park, Tidel Road, Taramani, Chennai, Tamil Nadu 600113</p>
+                                    <p style="margin: 0;">123, Agri Tech Park, salem, Tamil Nadu 636303</p>
                                 </div>
                             </li>
                         </ul>
@@ -181,6 +181,22 @@
                     <h3>Tamil Nadu Coverage</h3>
                     <p>We provide localized agricultural support across major farming regions including the Cauvery Delta, Western Ghats foothills, and Southern districts.</p>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <section class="section" style="padding-top: 0;">
+        <div class="container reveal">
+            <div class="card" style="padding: 0; overflow: hidden; height: 400px;">
+                <iframe 
+                    src="https://maps.google.com/maps?q=Salem,+Tamil+Nadu&t=&z=12&ie=UTF8&iwloc=&output=embed" 
+                    width="100%" 
+                    height="100%" 
+                    style="border:0;" 
+                    allowfullscreen="" 
+                    loading="lazy">
+                </iframe>
             </div>
         </div>
     </section>

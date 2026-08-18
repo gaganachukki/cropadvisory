@@ -7,6 +7,28 @@
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/responsive.css">
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <style>
+        .topic-tag {
+            background-color: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: var(--white);
+            padding: 12px 24px;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: var(--transition);
+            display: inline-block;
+        }
+        .topic-tag:hover {
+            background-color: var(--primary-green);
+            border-color: var(--primary-green);
+        }
+        .video-card:hover img {
+            transform: scale(1.05);
+        }
+        .video-card img {
+            transition: transform 0.5s ease;
+        }
+    </style>
 </head>
 <body>
 
@@ -24,8 +46,8 @@
                 <a href="contact.html">Contact</a>
             
             <div class="mobile-auth-container" style="flex-direction: column; gap: 12px; margin-top: 16px; width: 100%; max-width: 200px;">
-                <a href="login.html" class="desktop-auth-btn btn btn-secondary" style="width: 100%; justify-content: center;"><i class="ph ph-user"></i> Login</a>
-                <a href="register.html" class="desktop-auth-btn btn btn-primary" style="width: 100%; justify-content: center;">Register</a>
+                <a href="login.html" class="btn btn-secondary" style="width: 100%; justify-content: center;"><i class="ph ph-user"></i> Login</a>
+                <a href="register.html" class="btn btn-primary" style="width: 100%; justify-content: center;">Register</a>
             </div>
         </div>
             
@@ -106,6 +128,111 @@
                         <p style="font-size: 0.9rem; margin-bottom: 16px;">Everything you need to know about seed selection, nursery preparation, and nutrient management for Paddy.</p>
                         <a href="404.html" class="btn btn-secondary" style="padding: 8px 16px; font-size: 0.9rem;">Read Article</a>
                     </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 1: Farmer Spotlight -->
+    <section class="section" style="background-color: var(--accent-light);">
+        <div class="container reveal">
+            <div class="grid grid-2" style="align-items: center; gap: 60px;">
+                <div class="card" style="padding: 0; overflow: hidden; border-radius: var(--radius-lg);">
+                    <img src="assets/images/crop_sugarcane.webp" alt="Success Story" style="width: 100%; height: 100%; object-fit: cover; min-height: 350px;">
+                </div>
+                <div>
+                    <span class="section-tag">Success Story</span>
+                    <h2 style="margin-bottom: 20px;">From Traditional to Tech-Driven Farming</h2>
+                    <p style="margin-bottom: 24px; line-height: 1.7; color: var(--text-light);">Meet Rajendran, a third-generation sugarcane farmer from Erode who completely transformed his crop yield. By adopting precision micro-irrigation and relying on our weather predictions, he reduced water usage by 40% while increasing his overall harvest weight by 25%.</p>
+                    <blockquote style="border-left: 4px solid var(--primary-green); padding-left: 16px; margin-bottom: 24px; font-style: italic; color: var(--text-color);">
+                        "Knowing exactly when the rain is coming and adjusting my fertilizer application accordingly was the game changer for my farm this year."
+                    </blockquote>
+                    <a href="404.html" class="btn btn-primary">Read Full Story</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 2: Seasonal Checklist -->
+    <section class="section">
+        <div class="container reveal">
+            <div class="section-header">
+                <h2>Monthly Farming Checklist</h2>
+                <p>Essential tasks to prioritize for the upcoming season</p>
+            </div>
+            
+            <div class="grid grid-4" style="gap: 24px;">
+                <div class="card" style="text-align: center;">
+                    <div class="card-icon" style="margin: 0 auto 16px;"><i class="ph-fill ph-drop"></i></div>
+                    <h4>Water Management</h4>
+                    <p style="font-size: 0.9rem; color: var(--text-light); margin-top: 12px;">Clear drainage channels to prevent waterlogging during unexpected pre-monsoon showers.</p>
+                </div>
+                <div class="card" style="text-align: center;">
+                    <div class="card-icon" style="margin: 0 auto 16px;"><i class="ph-fill ph-bug"></i></div>
+                    <h4>Pest Scouting</h4>
+                    <p style="font-size: 0.9rem; color: var(--text-light); margin-top: 12px;">Set up pheromone traps early to monitor and control the first generation of stem borers.</p>
+                </div>
+                <div class="card" style="text-align: center;">
+                    <div class="card-icon" style="margin: 0 auto 16px;"><i class="ph-fill ph-plant"></i></div>
+                    <h4>Nursery Prep</h4>
+                    <p style="font-size: 0.9rem; color: var(--text-light); margin-top: 12px;">Select certified, disease-resistant seeds for the upcoming sowing season to ensure high germination rates.</p>
+                </div>
+                <div class="card" style="text-align: center;">
+                    <div class="card-icon" style="margin: 0 auto 16px;"><i class="ph-fill ph-flask"></i></div>
+                    <h4>Soil Testing</h4>
+                    <p style="font-size: 0.9rem; color: var(--text-light); margin-top: 12px;">Collect soil samples now to receive your nutrient profile before the basal fertilizer application.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 3: Expert Masterclasses -->
+    <section class="section" style="background-color: var(--white);">
+        <div class="container reveal">
+            <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 40px; flex-wrap: wrap; gap: 16px;">
+                <div>
+                    <h2 style="margin-bottom: 8px;">Expert Masterclasses</h2>
+                    <p style="color: var(--text-light);">Watch and learn directly from agricultural scientists.</p>
+                </div>
+                <a href="404.html" class="btn btn-secondary">View All Videos</a>
+            </div>
+            
+            <div class="grid grid-2" style="gap: 32px;">
+                <div class="card video-card" style="padding: 0; overflow: hidden; position: relative; cursor: pointer;">
+                    <img src="assets/images/pest_stem_borer.webp" alt="Video Thumbnail" style="width: 100%; height: 280px; object-fit: cover; filter: brightness(0.7);">
+                    <i class="ph-fill ph-play-circle" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 64px; color: var(--white); opacity: 0.9;"></i>
+                    <div style="position: absolute; bottom: 0; left: 0; right: 0; padding: 24px; background: linear-gradient(transparent, rgba(0,0,0,0.9));">
+                        <h3 style="color: var(--white); margin: 0;">Identifying Stem Borer Early</h3>
+                        <p style="color: #ddd; font-size: 0.9rem; margin-top: 8px;">Duration: 12:45 &bull; By Dr. Annamalai</p>
+                    </div>
+                </div>
+                <div class="card video-card" style="padding: 0; overflow: hidden; position: relative; cursor: pointer;">
+                    <img src="assets/images/crop_coconut.webp" alt="Video Thumbnail" style="width: 100%; height: 280px; object-fit: cover; filter: brightness(0.7);">
+                    <i class="ph-fill ph-play-circle" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 64px; color: var(--white); opacity: 0.9;"></i>
+                    <div style="position: absolute; bottom: 0; left: 0; right: 0; padding: 24px; background: linear-gradient(transparent, rgba(0,0,0,0.9));">
+                        <h3 style="color: var(--white); margin: 0;">Coconut Pest Management Techniques</h3>
+                        <p style="color: #ddd; font-size: 0.9rem; margin-top: 8px;">Duration: 08:20 &bull; By TNAU Board</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 4: Explore Topics -->
+    <section class="section" style="background-color: var(--primary-dark); color: var(--white);">
+        <div class="container reveal">
+            <div class="grid grid-2" style="align-items: center; gap: 40px;">
+                <div>
+                    <h2 style="color: var(--white); margin-bottom: 20px;">Explore Topics That Matter</h2>
+                    <p style="color: #a3b5a7; margin-bottom: 0; line-height: 1.7;">Dive deeper into the subjects you care about most. Our categorized insights make it easy to find exactly what you need for your farm's success.</p>
+                </div>
+                <div style="display: flex; flex-wrap: wrap; gap: 12px;">
+                    <a href="404.html" class="topic-tag">🌱 Organic Farming</a>
+                    <a href="404.html" class="topic-tag">🚜 Farm Machinery</a>
+                    <a href="404.html" class="topic-tag">💧 Micro-Irrigation</a>
+                    <a href="404.html" class="topic-tag">📜 Govt Subsidies</a>
+                    <a href="404.html" class="topic-tag">📈 Market Trends</a>
+                    <a href="404.html" class="topic-tag">🧪 Soil Health</a>
                 </div>
             </div>
         </div>
