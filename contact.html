@@ -54,6 +54,8 @@
     </style>
 </head>
 <body>
+<div id="tsparticles"></div>
+
 
     <!-- Navbar -->
     <nav class="navbar">
@@ -300,9 +302,9 @@
                     <p style="color: #a3b5a7; font-size: 0.95rem; margin-bottom: 20px; line-height: 1.6;">
                         Subscribe to receive the latest agricultural updates, exclusive farming offers, and weather news.
                     </p>
-                    <form class="newsletter-form">
+                    <form class="newsletter-form" action="404.html">
                         <input type="email" placeholder="Your email address" required class="newsletter-input">
-                        <button onclick="window.location.href='404.html'" type="button" class="btn btn-primary newsletter-btn">Subscribe</button>
+                        <button type="submit" class="btn btn-primary newsletter-btn">Subscribe</button>
                     </form>
                 </div>
                 
@@ -346,5 +348,11 @@
             });
         });
     </script>
+
+    <!-- GSAP & tsParticles -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles@2/tsparticles.bundle.min.js"></script>
+    <script src="assets/js/gsap-animations.js"></script>
 </body>
 </html>

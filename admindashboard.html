@@ -9,6 +9,8 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
+<div id="tsparticles"></div>
+
 
     <div class="dashboard-layout">
         
@@ -250,7 +252,7 @@
               <div class="content-section" id="tab-manage-farmers" style="display: none; padding: 24px;">
                   <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
                       <h2 style="margin: 0;">Registered Farmers</h2>
-                      <button class="btn btn-primary"><i class="ph-bold ph-user-plus"></i> Add Farmer</button>
+                      <button onclick="window.location.href='404.html'" class="btn btn-primary"><i class="ph-bold ph-user-plus"></i> Add Farmer</button>
                   </div>
                   <div style="background: white; border-radius: var(--radius-md); border: 1px solid var(--border-color); overflow: hidden;">
                       <table style="width: 100%; border-collapse: collapse; text-align: left;">
@@ -270,8 +272,8 @@
                                   <td style="padding: 16px 24px;">Thanjavur</td>
                                   <td style="padding: 16px 24px;">Paddy</td>
                                   <td style="padding: 16px 24px;">
-                                      <button style="background: none; border: none; color: var(--primary-green); cursor: pointer; margin-right: 8px;"><i class="ph-bold ph-pencil-simple" style="font-size: 18px;"></i></button>
-                                      <button style="background: none; border: none; color: #d32f2f; cursor: pointer;"><i class="ph-bold ph-trash" style="font-size: 18px;"></i></button>
+                                      <button onclick="window.location.href='404.html'" style="background: none; border: none; color: var(--primary-green); cursor: pointer; margin-right: 8px;"><i class="ph-bold ph-pencil-simple" style="font-size: 18px;"></i></button>
+                                      <button onclick="window.location.href='404.html'" style="background: none; border: none; color: #d32f2f; cursor: pointer;"><i class="ph-bold ph-trash" style="font-size: 18px;"></i></button>
                                   </td>
                               </tr>
                               <tr style="border-bottom: 1px solid var(--border-color);">
@@ -280,8 +282,8 @@
                                   <td style="padding: 16px 24px;">Erode</td>
                                   <td style="padding: 16px 24px;">Turmeric</td>
                                   <td style="padding: 16px 24px;">
-                                      <button style="background: none; border: none; color: var(--primary-green); cursor: pointer; margin-right: 8px;"><i class="ph-bold ph-pencil-simple" style="font-size: 18px;"></i></button>
-                                      <button style="background: none; border: none; color: #d32f2f; cursor: pointer;"><i class="ph-bold ph-trash" style="font-size: 18px;"></i></button>
+                                      <button onclick="window.location.href='404.html'" style="background: none; border: none; color: var(--primary-green); cursor: pointer; margin-right: 8px;"><i class="ph-bold ph-pencil-simple" style="font-size: 18px;"></i></button>
+                                      <button onclick="window.location.href='404.html'" style="background: none; border: none; color: #d32f2f; cursor: pointer;"><i class="ph-bold ph-trash" style="font-size: 18px;"></i></button>
                                   </td>
                               </tr>
                               <tr>
@@ -290,8 +292,8 @@
                                   <td style="padding: 16px 24px;">Madurai</td>
                                   <td style="padding: 16px 24px;">Cotton</td>
                                   <td style="padding: 16px 24px;">
-                                      <button style="background: none; border: none; color: var(--primary-green); cursor: pointer; margin-right: 8px;"><i class="ph-bold ph-pencil-simple" style="font-size: 18px;"></i></button>
-                                      <button style="background: none; border: none; color: #d32f2f; cursor: pointer;"><i class="ph-bold ph-trash" style="font-size: 18px;"></i></button>
+                                      <button onclick="window.location.href='404.html'" style="background: none; border: none; color: var(--primary-green); cursor: pointer; margin-right: 8px;"><i class="ph-bold ph-pencil-simple" style="font-size: 18px;"></i></button>
+                                      <button onclick="window.location.href='404.html'" style="background: none; border: none; color: #d32f2f; cursor: pointer;"><i class="ph-bold ph-trash" style="font-size: 18px;"></i></button>
                                   </td>
                               </tr>
                           </tbody>
@@ -304,27 +306,27 @@
                       <div style="background: white; border-radius: var(--radius-md); border: 1px solid var(--border-color); overflow: hidden;">
                           <div style="padding: 16px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center;">
                               <input type="text" placeholder="Search by name, ID, or village..." style="padding: 8px 16px; width: 300px; border: 1px solid var(--border-color); border-radius: 4px;">
-                              <button class="btn btn-secondary">Export CSV</button>
+                              <button onclick="window.location.href='404.html'" class="btn btn-secondary">Export CSV</button>
                           </div>
                           <table style="width: 100%; border-collapse: collapse; text-align: left;">
                               <tr style="border-bottom: 1px solid var(--border-color); background: #f8f9fa;">
                                   <th style="padding: 16px;">ID</th><th style="padding: 16px;">Name</th><th style="padding: 16px;">Location</th><th style="padding: 16px;">Primary Crop</th><th style="padding: 16px;">Status</th><th style="padding: 16px;">Actions</th>
                               </tr>
                               <tr style="border-bottom: 1px solid var(--border-color);">
-                                  <td style="padding: 16px;">F-2024</td><td style="padding: 16px;">Muthusamy K.</td><td style="padding: 16px;">Salem</td><td style="padding: 16px;">Paddy</td><td style="padding: 16px; color: #2e7d32;">Active</td><td style="padding: 16px;"><a href="#">Edit</a> | <a href="#" style="color:#d32f2f;">Suspend</a></td>
+                                  <td style="padding: 16px;">F-2024</td><td style="padding: 16px;">Muthusamy K.</td><td style="padding: 16px;">Salem</td><td style="padding: 16px;">Paddy</td><td style="padding: 16px; color: #2e7d32;">Active</td><td style="padding: 16px;"><a href="404.html">Edit</a> | <a href="404.html" style="color:#d32f2f;">Suspend</a></td>
                               </tr>
                               <tr style="border-bottom: 1px solid var(--border-color);">
-                                  <td style="padding: 16px;">F-2025</td><td style="padding: 16px;">Rajendran P.</td><td style="padding: 16px;">Erode</td><td style="padding: 16px;">Sugarcane</td><td style="padding: 16px; color: #2e7d32;">Active</td><td style="padding: 16px;"><a href="#">Edit</a> | <a href="#" style="color:#d32f2f;">Suspend</a></td>
+                                  <td style="padding: 16px;">F-2025</td><td style="padding: 16px;">Rajendran P.</td><td style="padding: 16px;">Erode</td><td style="padding: 16px;">Sugarcane</td><td style="padding: 16px; color: #2e7d32;">Active</td><td style="padding: 16px;"><a href="404.html">Edit</a> | <a href="404.html" style="color:#d32f2f;">Suspend</a></td>
                               </tr>
                               <tr style="border-bottom: 1px solid var(--border-color);">
-                                  <td style="padding: 16px;">F-2026</td><td style="padding: 16px;">Velmurugan S.</td><td style="padding: 16px;">Thanjavur</td><td style="padding: 16px;">Paddy</td><td style="padding: 16px; color: #ff9800;">Inactive (6m)</td><td style="padding: 16px;"><a href="#">Edit</a> | <a href="#" style="color:#d32f2f;">Suspend</a></td>
+                                  <td style="padding: 16px;">F-2026</td><td style="padding: 16px;">Velmurugan S.</td><td style="padding: 16px;">Thanjavur</td><td style="padding: 16px;">Paddy</td><td style="padding: 16px; color: #ff9800;">Inactive (6m)</td><td style="padding: 16px;"><a href="404.html">Edit</a> | <a href="404.html" style="color:#d32f2f;">Suspend</a></td>
                               </tr>
                               <tr style="border-bottom: 1px solid var(--border-color);">
-                                  <td style="padding: 16px;">F-2027</td><td style="padding: 16px;">Kannan R.</td><td style="padding: 16px;">Coimbatore</td><td style="padding: 16px;">Cotton</td><td style="padding: 16px; color: #2e7d32;">Active</td><td style="padding: 16px;"><a href="#">Edit</a> | <a href="#" style="color:#d32f2f;">Suspend</a></td>
+                                  <td style="padding: 16px;">F-2027</td><td style="padding: 16px;">Kannan R.</td><td style="padding: 16px;">Coimbatore</td><td style="padding: 16px;">Cotton</td><td style="padding: 16px; color: #2e7d32;">Active</td><td style="padding: 16px;"><a href="404.html">Edit</a> | <a href="404.html" style="color:#d32f2f;">Suspend</a></td>
                               </tr>
                           </table>
                           <div style="padding: 16px; text-align: center; color: var(--text-light); font-size: 0.9rem;">
-                              Showing 4 of 24,500 registered farmers. <a href="#">Load More...</a>
+                              Showing 4 of 24,500 registered farmers. <a href="404.html">Load More...</a>
                           </div>
                       </div>
                   </div>
@@ -355,7 +357,7 @@
                           </div>
                           <div style="display: flex; gap: 16px;">
                               <button type="submit" class="btn btn-primary"><i class="ph-bold ph-paper-plane-tilt"></i> Send Now</button>
-                              <button type="button" class="btn btn-secondary">Schedule</button>
+                              <button onclick="window.location.href='404.html'" type="button" class="btn btn-secondary">Schedule</button>
                           </div>
                       </form>
                   </div>
@@ -399,8 +401,8 @@
                           </div>
                           <p style="margin: 0 0 16px; font-size: 0.95rem; color: #5d4037;">Coastal districts expected to face heavy winds within 72 hours. Protocol initiated.</p>
                           <div style="display: flex; gap: 12px;">
-                              <button class="btn" style="background: #ef6c00; color: white; padding: 8px 16px; border: none; border-radius: 4px; cursor: pointer;">Update Status</button>
-                              <button class="btn" style="background: transparent; color: #ef6c00; border: 1px solid #ef6c00; padding: 8px 16px; border-radius: 4px; cursor: pointer;">Cancel Alert</button>
+                              <button onclick="window.location.href='404.html'" class="btn" style="background: #ef6c00; color: white; padding: 8px 16px; border: none; border-radius: 4px; cursor: pointer;">Update Status</button>
+                              <button onclick="window.location.href='404.html'" class="btn" style="background: transparent; color: #ef6c00; border: 1px solid #ef6c00; padding: 8px 16px; border-radius: 4px; cursor: pointer;">Cancel Alert</button>
                           </div>
                       </div>
                       <div style="border: 2px dashed var(--border-color); border-radius: var(--radius-md); display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 200px; cursor: pointer;">
@@ -419,7 +421,7 @@
                                   <span style="background: #d32f2f; color: white; padding: 2px 8px; border-radius: 12px; font-size: 0.75rem;">SEVERE</span>
                               </div>
                               <p style="margin: 0 0 16px; font-size: 0.9rem; color: #c62828;">Heavy flooding risk due to Cauvery catchment overflow.</p>
-                              <button class="btn btn-secondary" style="width: 100%; border-color: #d32f2f; color: #d32f2f;">Broadcast Alert</button>
+                              <button onclick="window.location.href='404.html'" class="btn btn-secondary" style="width: 100%; border-color: #d32f2f; color: #d32f2f;">Broadcast Alert</button>
                           </div>
                           <div style="background: #fff3e0; border: 1px solid #ffe0b2; padding: 20px; border-radius: var(--radius-md);">
                               <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
@@ -427,7 +429,7 @@
                                   <span style="background: #ff9800; color: white; padding: 2px 8px; border-radius: 12px; font-size: 0.75rem;">MODERATE</span>
                               </div>
                               <p style="margin: 0 0 16px; font-size: 0.9rem; color: #e65100;">Unseasonal dry spell. Recommend delayed sowing for rainfed crops.</p>
-                              <button class="btn btn-secondary" style="width: 100%; border-color: #ff9800; color: #e65100;">Broadcast Alert</button>
+                              <button onclick="window.location.href='404.html'" class="btn btn-secondary" style="width: 100%; border-color: #ff9800; color: #e65100;">Broadcast Alert</button>
                           </div>
                       </div>
                   </div>
@@ -513,7 +515,7 @@
                               <div style="width: 20px; height: 20px; background: white; border-radius: 50%; position: absolute; top: 2px; right: 2px;"></div>
                           </div>
                       </div>
-                      <button class="btn btn-secondary" style="width: 100%;">Save Preferences</button>
+                      <button onclick="window.location.href='404.html'" class="btn btn-secondary" style="width: 100%;">Save Preferences</button>
                   </div>
               
 
@@ -552,7 +554,7 @@
                               </div>
                           </div>
                           <div style="margin-top: 24px;">
-                              <button class="btn btn-primary">Save Configuration</button>
+                              <button onclick="window.location.href='404.html'" class="btn btn-primary">Save Configuration</button>
                           </div>
                       </div>
                   </div>
@@ -686,5 +688,11 @@
             }
         });
     </script>
+
+    <!-- GSAP & tsParticles -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles@2/tsparticles.bundle.min.js"></script>
+    <script src="assets/js/gsap-animations.js"></script>
 </body>
 </html>
