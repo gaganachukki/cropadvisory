@@ -5,20 +5,13 @@
     .container {
         padding: 0 40px;
     }
+    .nav-links {
+        gap: 16px;
+    }
 }
 
-/* Tablet Landscape & Small Desktop */
+/* Tablet and Mobile Layout (992px and below) */
 @media (max-width: 992px) {
-    h1 { font-size: 2.8rem; }
-    h2 { font-size: 2.2rem; }
-    
-    .grid-4 { grid-template-columns: repeat(2, 1fr); }
-    .footer-grid { grid-template-columns: repeat(2, 1fr); gap: 40px 20px; }
-}
-
-/* Tablet Portrait */
-@media (max-width: 768px) {
-
     /* Fix for mobile blank screen issues */
     html, body {
         overflow-x: hidden;
@@ -41,6 +34,8 @@
     h2 { font-size: 1.8rem; }
     
     .grid-3 { grid-template-columns: repeat(2, 1fr); }
+    .grid-4 { grid-template-columns: repeat(2, 1fr); }
+    .footer-grid { grid-template-columns: repeat(2, 1fr); gap: 40px 20px; }
     
     /* Navbar Mobile Menu */
     .desktop-auth-btn { display: none !important; }

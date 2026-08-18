@@ -468,16 +468,14 @@
                           </div>
                       </div>
                   </div>
-                  <div style="background: white; padding: 32px; border-radius: var(--radius-md); border: 1px solid var(--border-color); text-align: center; height: 300px; display: flex; align-items: center; justify-content: center;">
-                      <p style="color: var(--text-light);"><i class="ph-fill ph-chart-line-up" style="font-size: 48px; margin-bottom: 16px; display: block;"></i> User Engagement Chart <br><small>(Chart.js integration placeholder)</small></p>
+                  <div style="background: white; padding: 24px; border-radius: var(--radius-md); border: 1px solid var(--border-color); position: relative; height: 350px; width: 100%;">
+                      <canvas id="userEngagementChart"></canvas>
                   </div>
-              
-
                   <div style="margin-top: 32px;" class="grid grid-2">
                       <div style="background: white; padding: 24px; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
                           <h3 style="margin-top: 0;">Platform Traffic Sources</h3>
-                          <div style="height: 200px; background: #f8f9fa; display: flex; align-items: center; justify-content: center; border-radius: 4px; border: 1px dashed #ccc;">
-                              <span style="color: var(--text-light);"><i class="ph-bold ph-chart-pie" style="font-size: 24px;"></i> Traffic Pie Chart Placeholder</span>
+                          <div style="height: 250px; width: 100%; position: relative;">
+                              <canvas id="trafficPieChart"></canvas>
                           </div>
                       </div>
                       <div style="background: white; padding: 24px; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
@@ -663,6 +661,52 @@
                             legend: { position: 'bottom' }
                         },
                         cutout: '65%'
+                    }
+                });
+            }
+
+            // User Engagement Line Chart
+            const ctxEngagement = document.getElementById('userEngagementChart');
+            if (ctxEngagement) {
+                new Chart(ctxEngagement, {
+                    type: 'line',
+                    data: {
+                        labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                        datasets: [{
+                            label: 'Active Users',
+                            data: [8500, 9200, 9100, 10500, 11200, 12500, 14000],
+                            borderColor: '#2e7d32',
+                            backgroundColor: 'rgba(46, 125, 50, 0.1)',
+                            fill: true,
+                            tension: 0.4
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: { y: { beginAtZero: true } }
+                    }
+                });
+            }
+
+            // Traffic Pie Chart
+            const ctxTraffic = document.getElementById('trafficPieChart');
+            if (ctxTraffic) {
+                new Chart(ctxTraffic, {
+                    type: 'pie',
+                    data: {
+                        labels: ['Organic Search', 'Direct', 'Social Media', 'Referrals'],
+                        datasets: [{
+                            data: [55, 20, 15, 10],
+                            backgroundColor: ['#2e7d32', '#ef6c00', '#1976d2', '#673ab7'],
+                            borderWidth: 0
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { position: 'right' } }
                     }
                 });
             }

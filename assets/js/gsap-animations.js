@@ -60,8 +60,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const fadeUpElements = document.querySelectorAll('.card, .grid > div, .section-title, .form-group, .dashboard-container section');
     
     fadeUpElements.forEach((el) => {
-        // Prevent animating sidebars or navigation inadvertently
-        if(el.closest('.sidebar') || el.closest('.topbar')) return;
+        // Prevent animating sidebars, navigation, or dynamic crop grid items inadvertently
+        if(el.closest('.sidebar') || el.closest('.topbar') || el.closest('#cropGrid')) return;
         
         gsap.from(el, {
             scrollTrigger: {
@@ -79,6 +79,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // Scale-up animation for buttons and icons
     const scaleElements = document.querySelectorAll('.btn, .feature-icon, .stat-icon');
     scaleElements.forEach((el) => {
+        // Exclude navbar buttons (Login/Register) from the appear animation
+        if(el.closest('.navbar')) return;
+
         gsap.from(el, {
             scrollTrigger: {
                 trigger: el,
