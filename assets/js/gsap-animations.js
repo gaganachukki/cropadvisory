@@ -57,11 +57,11 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Scroll-triggered animations for all standard sections/cards
-    const fadeUpElements = document.querySelectorAll('.card, .grid > div, .section-title, .form-group, .dashboard-container section');
+    const fadeUpElements = document.querySelectorAll('.card, .grid > div, .section-title, .form-group');
     
     fadeUpElements.forEach((el) => {
         // Prevent animating sidebars, navigation, or dynamic crop grid items inadvertently
-        if(el.closest('.sidebar') || el.closest('.topbar') || el.closest('#cropGrid')) return;
+        if(el.closest('.sidebar') || el.closest('.topbar') || el.closest('#cropGrid') || el.closest('.dashboard-layout') || el.closest('.dashboard-container')) return;
         
         gsap.from(el, {
             scrollTrigger: {
@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const scaleElements = document.querySelectorAll('.btn, .feature-icon, .stat-icon');
     scaleElements.forEach((el) => {
         // Exclude navbar buttons (Login/Register) from the appear animation
-        if(el.closest('.navbar')) return;
+        if(el.closest('.navbar') || el.closest('.dashboard-layout') || el.closest('.dashboard-container')) return;
 
         gsap.from(el, {
             scrollTrigger: {

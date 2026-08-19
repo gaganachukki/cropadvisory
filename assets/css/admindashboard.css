@@ -34,7 +34,9 @@ body {
     background-color: var(--dash-panel);
     border-right: 1px solid var(--dash-border);
     position: fixed;
-    height: 100vh;
+    top: 0;
+    left: 0;
+    bottom: 0;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
@@ -563,4 +565,14 @@ input {
     height: 100%;
     z-index: -1;
     pointer-events: none;
+}
+
+/* Fix unwanted gaps in 2-column layouts for odd number of items */
+@media (min-width: 769px) and (max-width: 992px) {
+    .stats-grid > div:last-child:nth-child(odd) {
+        grid-column: span 2;
+    }
+    .grid-3 > div:last-child:nth-child(odd) {
+        grid-column: span 2;
+    }
 }
